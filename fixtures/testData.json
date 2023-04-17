@@ -1,0 +1,170 @@
+[
+    {
+        "tcid": "TC_01",
+        "description": "1.Launch the browser",
+        "keyword": "openbrowser",
+        "data": "https://demoqa.com/",
+        "objectName": "no value",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_02",
+        "description": "2.Selecting Form Menu",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "form_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_03",
+        "description": "3.Selecting Practice forms Submenu",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "practiceform_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_04",
+        "description": "4.Entering FirstName",
+        "keyword": "type",
+        "data": "faker",
+        "objectName": "first_name",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_05",
+        "description": "5.Entering LastName",
+        "keyword": "type",
+        "data": "faker",
+        "objectName": "last_name",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_06",
+        "description": "6.Entering Email",
+        "keyword": "type",
+        "data": "faker",
+        "objectName": "email",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_07",
+        "description": "7.Radiobutton Check for gender",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "gender",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_08",
+        "description": "8.Entering Mobile number",
+        "keyword": "type",
+        "data": "faker",
+        "objectName": "mobile_number",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_09",
+        "description": "09.Selecting Date from datepicker",
+        "keyword": "date",
+        "data": "faker",
+        "objectName": "dob",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_10",
+        "description": "10.Scrolling to the bottom of the screen ",
+        "keyword": "scroll",
+        "data": "no value",
+        "objectName": "submit_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_11",
+        "description": "11.Dynamic dropdown selection ",
+        "keyword": "dropdown",
+        "data": "Com,Ma",
+        "objectName": "subject",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_12",
+        "description": "12.Clicking Square checkbox ",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "hobbies",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_13",
+        "description": "13.Uploading File from windows",
+        "keyword": "uploadfile",
+        "data": "Sample image.png",
+        "objectName": "upload",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_14",
+        "description": "14.Entering Address",
+        "keyword": "type",
+        "data": "faker",
+        "objectName": "address",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_15",
+        "description": "15.Selecting State Value dropdown",
+        "keyword": "dropdown",
+        "data": "Rajas",
+        "objectName": "state",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_16",
+        "description": "16.Selecting City Value dropdown",
+        "keyword": "dropdown",
+        "data": "Jai",
+        "objectName": "city",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_17",
+        "description": "17.Scroll to PopupFooter",
+        "keyword": "scroll",
+        "data": "no value",
+        "objectName": "close_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_18",
+        "description": "18.Closing Subitted form popup",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "close_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_19",
+        "description": "19. Selecting bookstore",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "book_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_20",
+        "description": "20.Selecting Login Form",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "login_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "TC_21",
+        "description": "21.Registering as New user",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "register",
+        "runmode": "yes"
+    }
+]

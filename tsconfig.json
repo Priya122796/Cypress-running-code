@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src/Specs",
+   "target": "es5",
+   "lib": ["es5", "dom"],
+   "types": ["cypress", "node", "cypress-file-upload", "@testing-library/cypress"],
+   //faker compiler option
+   "esModuleInterop": true,
+   "moduleResolution": "Node"
+ //  "experimentalDecorators": true
+ },
+ "include": ["**/*.ts", "cypress/fixtures/fakerdata.js"]
+}
+
