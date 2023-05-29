@@ -1,3 +1,5 @@
+//import { testcaseName } from "./cypress/e2e/src/Specs/TFSAPiintegration.cy";
+
 // code coverage
 const path = require('path')
 const { defineConfig } = require("cypress");
@@ -44,7 +46,7 @@ const { defineConfig } = require("cypress");
 function getDataFromHtmlWatchlistIntoJson() {
   const XLSX = require("xlsx");
 
-  const filePath = path.resolve(__dirname, "C:\\Nodejs_training\\Cypress\\TestcaseLeadSuite.xlsx")
+  const filePath = path.resolve(__dirname, "C:\\Nodejs_training\\Cypress_1.0\\Cypress_running_code\\TestcaseSuite.xlsx")
  
   const workbook = XLSX.readFile(filePath);
 
@@ -56,13 +58,31 @@ function getDataFromHtmlWatchlistIntoJson() {
   console.log(jsonData);
   return jsonData
 }
+function getTFSdetailsIntoJson() {
+  const XLSX = require("xlsx");
+
+  const filePath = path.resolve(__dirname, "C:\\Nodejs_training\\Cypress_1.0\\Cypress_running_code\\cypress\\fixtures\\sampleFile.xlsx")
+ 
+  const workbook = XLSX.readFile(filePath);
+
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+ 
+  const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+  console.log(jsonData);
+  return jsonData
+ 
+}
 
 
 
 module.exports = defineConfig({
+ 
   projectId: 'yb6s1t',
   defaultCommandTimeout: 5000,
   e2e: {
+  
    trashAssetsBeforeRuns : true,
     baseUrl : 'https://naveenautomationlabs.com/opencart/',
     //Wont run automatically on every save when watch for file changes is false 
@@ -71,14 +91,24 @@ module.exports = defineConfig({
     // testIsolation: false,
     experimentalRunAllSpecs : true,
     setupNodeEvents(on, config) {
-    //  require("@cypress/code-coverage/task")(on, config);
-      on('task', {
+     require("@cypress/code-coverage/task")(on, config);
+         on('task', {
         readXlsxFile() {
           return getDataFromHtmlWatchlistIntoJson()
         },
+        readTfsDetails(){
+          return getTFSdetailsIntoJson()
+        },
+        setUserData: (userData:string) => {
+          global.userData = userData;
+          return "description is set !!!!!!!!";
+        },
+        getUserData: () => {
+          return global.userData;
+        },
       });
       // on("file:preprocessor", require("@cypress/code-coverage/use-babelrc"));
-      // return config;
+       return config;
     },
  
   

@@ -3,7 +3,7 @@
     "baseUrl": "src/Specs",
    "target": "es5",
    "lib": ["es5", "dom"],
-   "types": ["cypress", "node", "cypress-file-upload", "@testing-library/cypress"],
+   "types": ["cypress", "node", "cypress-file-upload"],
    //faker compiler option
    "esModuleInterop": true,
    "moduleResolution": "Node"

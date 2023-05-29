@@ -6,7 +6,7 @@
     practiceform_contains='Practice Form',
     first_name= '#firstName',
     last_name= '#lastName',
-    email='#userEmail',
+    email='#userEmai',
     gender='#genterWrapper > .col-md-9 > :nth-child(1)',
     radio_class='.custom-control-label',
     mobile_number='#userNumber',
@@ -25,6 +25,7 @@
     login_contains='Login',
     register='#newUser',
     username='#userName',
+    basic_auth='Basic OjRhNWFqc2hjenBob3dkam53Y3BzbWEyNGE2emdmYWNteXZ2ajZoZHNrYTV0YXhsZnZqeWE='
   };  
 
 

@@ -77,7 +77,7 @@
         "keyword": "scroll",
         "data": "no value",
         "objectName": "submit_contains",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_11",
@@ -109,62 +109,6 @@
         "keyword": "type",
         "data": "faker",
         "objectName": "address",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "TC_15",
-        "description": "15.Selecting State Value dropdown",
-        "keyword": "dropdown",
-        "data": "Rajas",
-        "objectName": "state",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "TC_16",
-        "description": "16.Selecting City Value dropdown",
-        "keyword": "dropdown",
-        "data": "Jai",
-        "objectName": "city",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "TC_17",
-        "description": "17.Scroll to PopupFooter",
-        "keyword": "scroll",
-        "data": "no value",
-        "objectName": "close_contains",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "TC_18",
-        "description": "18.Closing Subitted form popup",
-        "keyword": "click",
-        "data": "no value",
-        "objectName": "close_contains",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "TC_19",
-        "description": "19. Selecting bookstore",
-        "keyword": "click",
-        "data": "no value",
-        "objectName": "book_contains",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "TC_20",
-        "description": "20.Selecting Login Form",
-        "keyword": "click",
-        "data": "no value",
-        "objectName": "login_contains",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "TC_21",
-        "description": "21.Registering as New user",
-        "keyword": "click",
-        "data": "no value",
-        "objectName": "register",
         "runmode": "yes"
     }
 ]

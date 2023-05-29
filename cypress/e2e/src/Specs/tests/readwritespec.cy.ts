@@ -1,18 +1,40 @@
 
 import {action} from  '../actionspec';
 import { generateEmployees } from "../../page-objects/Fakerdata";
+import {get_testplan_details,UpdateStatusintoTFS} from "../TFSAPiintegration.cy";
 /// <reference types="cypress" />
+
 
 const actionobj= new action();
 describe("My first Test Suite ",{testIsolation:false} ,() => {
-  //faker data is generated adn stored in json 
+ let index=0;
+ let status ="FAILED"
+ var description;
+ var temp=true
+ 
+  
   beforeEach('Generating faker data everytime ',()=>{
-    cy.log("Executing Before each" )
+//Handling failed test
+//cy.wrap(failedTest).should('be.undefined')
+    // 1.getting faker data generated dynamically using faker,json
+    //cy.task('setUserData', "description")
+     cy.log("Executing Before each 1. Generating faker data json dynamically " )
     let dataObj = generateEmployees(10);
-    cy.writeFile("./cypress/fixtures/fakerdata.json",JSON.stringify(dataObj, null, '\t'));
-  })
+   cy.writeFile("./cypress/fixtures/fakerdata.json",JSON.stringify(dataObj, null, '\t'));
+   if(index==0){
+     //2. Fetching tfs  ids and name from respective tfs plan and suite  dynamically and storing into json
+    cy.log("*Executing before each 2. Fetching tfs testcases details*")
+    cy.writeFile('cypress/fixtures/tfstestsuite.json','[')
+    cy.log("Writng into json ")
+    get_testplan_details()
+    cy.writeFile('cypress/fixtures/tfstestsuite.json',']',{flag:'a+'})
+    ++index
+   }
+})
+
   it("Reading xlsx and converting into json", () => {
-    // reading exc.el and coverting it into readable json through task 
+    // reading excel and cover  ting it into readable json through task 
+   // getDataFromHtmlWatchlistIntoJson()
     cy.task('readXlsxFile').then((fileContents) => {
       const jsonData =fileContents;
     // yeilded data from xlsx is dynamic creation into json file 
@@ -24,12 +46,32 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
       cy.log("Written into json");
     });
   });
-  it('read on a json file', function(){
-    //REading json and defining the calling methods 
+  it('read on a  TFS json and Excel input json file', function(){
+
+// converting plan and suite id from excel to  json
+cy.task('readTfsDetails').then((fileContents) => {
+  const jsonData =fileContents;
+// yeilded data from xlsx is dynamic creation into json file 
+  cy.writeFile(
+    "./cypress/fixtures/tfsdetails.json",
+    JSON.stringify(jsonData, null, 4),
+    "utf-8"
+  );
+  cy.log("Written into json");
+});
+
+    })
+it('Read from excel, Starting execution on Testcases',  {
+      retries: {
+        runMode: 1,
+        openMode: 0,
+      },}, function(){
+//REading json and defining the calling methods 
     cy.fixture('testData').then((json) => {
     for(let j in json){
+      status="FAILED"
       cy.log(json[j].keyword+json[j].runmode)
-    let description = json[j].description;
+     description = json[j].description;
     let keyword =json[j].keyword;
     var data:string = json[j].data;
     var ob1:string=json[j].objectName;
@@ -39,61 +81,66 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
     switch (keyword) {
       case 'openbrowser':
         cy.log('inside switch openbrowser   '+  ob1);
-        actionobj.openbrowser(description,data);
+        status = actionobj.openbrowser(description,data,runmode);
         break;
     case 'click':
       cy.log('inside switch click  '+  ob1);
-      actionobj.click(description,ob1 );
+      status = actionobj.click(description,ob1,runmode );
       break; 
     case 'type':
       cy.log('inside switch type  '+  ob1);
-      actionobj.type(description,ob1,data );
+     status = actionobj.type(description,ob1,data,runmode);
       break; 
     case 'date':
         cy.log('inside switch date  '+  ob1);
-        actionobj.date(description,ob1,data,keyword );
+        status = actionobj.date(description,ob1,data,keyword,runmode );
         break; 
     case 'uploadfile':
-      cy.log('inside uploadfile '+ob1)
-      actionobj.uploadfile(description,ob1,data,keyword);
-      break;
+        cy.log('inside uploadfile '+ob1)
+        status = actionobj.uploadfile(description,ob1,data,keyword,runmode);
+        break;
     case 'dropdown' : 
-      cy.log('inside dropdown  '+ob1)
-      actionobj.dropdown(description,ob1,data,keyword)
-      break;
+        cy.log('inside dropdown  '+ob1)
+        status = actionobj.dropdown(description,ob1,data,keyword,runmode)
+        break;
     case 'scroll' :
-      cy.log('inside dropdown  '+ob1)
-      actionobj.scroll(description,ob1)
-
+        cy.log('inside scroll  '+ob1)
+        status = actionobj.scroll(description,ob1,runmode)
+        break;
     }
   }else{
-    cy.log(description + " runmode is set to  " + runmode)
-  }
-    //.log(j  )
+    status="PAUSED"
+        cy.log(description + " runmode is set to  " + runmode)
+  } 
+    //logic to store the status of the testcase into TFS Testplan
+       UpdateStatusintoTFS(description,status) 
   }
     })
-             
-    // cy.fixture('example').then((profile)=>{
-      
-    //   //cy.log(profile);
-    //   cy.wrap(profile[1])
-    //   .should('be.an','object')
-    //   .and('contain',{
-    //     "name": "Getting second entry",
-    //     "email": "hello@cypress.io",
-    //     "body": "Fixtures are a great way to mock data for responses to routes"
-    //   })
-    //})
+    
+ 
+  })
+
+  after('Clearing local storage ',function(){
+    cy.log(status)
+    cy.task('getUserData').then((userData : string) => {
+      cy.log("userdata is "+userData);
+      if((userData.includes("FAILED"))){
+      var desc=userData.split("&&")
+      description=desc[0]
+      status=desc[1]
+      cy.log(description+ "^^^^^^^^^^^^^"+status)
+      UpdateStatusintoTFS(description,status)
+      }
+      // voila! Stored data between two .spec files
+    });
+   
+   //  description= Cypress.env('description')
+    
+    
+     cy.clearLocalStorage() 
+     cy.log("clearing local storage")
   })
 });
 
-// describe('TC_01 My first read and write file suite',function(){
-// it('write on a xlsx file',function(){
-//     //{flag : a+} used to concat and append 
-//     cy.writeFile('sampleFile.xlsx','Hello Hustler'+'\t')
-//     cy.writeFile('sampleFile.xlsx',"Second message !!!!!!",{flag :'a+'})
-//   //console.log(conversion());   
-// })
 
-// })
 

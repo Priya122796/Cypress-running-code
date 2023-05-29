@@ -1,0 +1,43 @@
+[{
+  "test_id": "922",
+  "test_name": "1.Launch the browser"
+},{
+  "test_id": "923",
+  "test_name": "2.Selecting Form Menu"
+},{
+  "test_id": "924",
+  "test_name": "3.Selecting Practice forms Submenu"
+},{
+  "test_id": "925",
+  "test_name": "4.Entering FirstName"
+},{
+  "test_id": "926",
+  "test_name": "5.Entering LastName"
+},{
+  "test_id": "927",
+  "test_name": "6.Entering Email"
+},{
+  "test_id": "928",
+  "test_name": "7.Radiobutton Check for gender"
+},{
+  "test_id": "929",
+  "test_name": "8.Entering Mobile number"
+},{
+  "test_id": "930",
+  "test_name": "09.Selecting Date from datepicker"
+},{
+  "test_id": "931",
+  "test_name": "10.Scrolling to the bottom of the screen "
+},{
+  "test_id": "932",
+  "test_name": "11.Dynamic dropdown selection "
+},{
+  "test_id": "933",
+  "test_name": "12.Clicking Square checkbox "
+},{
+  "test_id": "934",
+  "test_name": "13.Uploading File from windows"
+},{
+  "test_id": "935",
+  "test_name": "14.Entering Address"
+}]

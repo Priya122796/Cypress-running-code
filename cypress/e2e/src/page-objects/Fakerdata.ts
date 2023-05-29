@@ -19,6 +19,7 @@ const generateData = () => {
 };
 
 export const generateEmployees = (numUsers) => {
+  cy.log("Printing inside fakeradta "+ numUsers)
   return Array.from({ length: numUsers }, generateData);
 };
 
