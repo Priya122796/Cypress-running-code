@@ -91,7 +91,7 @@ module.exports = defineConfig({
     // testIsolation: false,
     experimentalRunAllSpecs : true,
     setupNodeEvents(on, config) {
-     require("@cypress/code-coverage/task")(on, config);
+  //   require("@cypress/code-coverage/task")(on, config);
          on('task', {
         readXlsxFile() {
           return getDataFromHtmlWatchlistIntoJson()

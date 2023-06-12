@@ -5,8 +5,8 @@
     form_contains = 'Forms',
     practiceform_contains='Practice Form',
     first_name= '#firstName',
-    last_name= '#lastName',
-    email='#userEmai',
+    last_name= '#lastNam',
+    email='#userEmail',
     gender='#genterWrapper > .col-md-9 > :nth-child(1)',
     radio_class='.custom-control-label',
     mobile_number='#userNumber',
@@ -25,7 +25,12 @@
     login_contains='Login',
     register='#newUser',
     username='#userName',
-    basic_auth='Basic OjRhNWFqc2hjenBob3dkam53Y3BzbWEyNGE2emdmYWNteXZ2ajZoZHNrYTV0YXhsZnZqeWE='
+    basic_auth='Basic OjRhNWFqc2hjenBob3dkam53Y3BzbWEyNGE2emdmYWNteXZ2ajZoZHNrYTV0YXhsZnZqeWE=',
+    keyvault_name='Advaprokeyvault',
+    tenant_id='1da53bfb-aa20-4fa2-bb8b-65e1f2516714',
+    client_id='15dfb74b-9965-4d96-a2f3-c226aebd69d2',
+    client_secret='uqB8Q~7u42mlkdcsC38VI.uKvjIQQWSM0q8Lgdg9',
+    key='secretcheck'
   };  
 
 

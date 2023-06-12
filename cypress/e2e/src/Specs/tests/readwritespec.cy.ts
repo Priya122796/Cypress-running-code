@@ -10,7 +10,6 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
  let index=0;
  let status ="FAILED"
  var description;
- var temp=true
  
   
   beforeEach('Generating faker data everytime ',()=>{
@@ -18,7 +17,7 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
 //cy.wrap(failedTest).should('be.undefined')
     // 1.getting faker data generated dynamically using faker,json
     //cy.task('setUserData', "description")
-     cy.log("Executing Before each 1. Generating faker data json dynamically " )
+    cy.log("Executing Before each 1. Generating faker data json dynamically " )
     let dataObj = generateEmployees(10);
    cy.writeFile("./cypress/fixtures/fakerdata.json",JSON.stringify(dataObj, null, '\t'));
    if(index==0){
@@ -29,6 +28,9 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
     get_testplan_details()
     cy.writeFile('cypress/fixtures/tfstestsuite.json',']',{flag:'a+'})
     ++index
+    // //3. Getting secret value from keyvault
+    // cy.log("**Executing before each 3. Getting the secret key from Azure portal **")
+    // get_secret()
    }
 })
 
