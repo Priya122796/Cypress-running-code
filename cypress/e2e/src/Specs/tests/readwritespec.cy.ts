@@ -74,25 +74,41 @@ it('Read from excel, Starting execution on Testcases',  {
       status="FAILED"
       cy.log(json[j].keyword+json[j].runmode)
      description = json[j].description;
-    let keyword =json[j].keyword;
+    var keyword =json[j].keyword;
+    var key_array=keyword.split(",")
+    key_array.forEach(element => {
+      cy.log("The keyword is L",element)
+    });
     var data:string = json[j].data;
+    var data_array=data.split(",")
+    data_array.forEach(element => {
+      cy.log("The data is ",element)
+    });
     var ob1:string=json[j].objectName;
+    var obj_array=ob1.split(",")
+   obj_array.forEach(element => {
+    cy.log("The object array is : "+element)
+   });
     let runmode =json[j].runmode; 
-    if(runmode== "yes"){    
+    if(runmode== "yes"){
+      for (let index = 0; index < key_array.length; index++) {  
+        keyword=key_array[index]
+        ob1=obj_array[index]
+        data=data_array[index]
       cy.log('*****Keyword is '+keyword)
-    switch (keyword) {
-      case 'openbrowser':
+      switch (keyword) {
+    case 'openbrowser':
         cy.log('inside switch openbrowser   '+  ob1);
         status = actionobj.openbrowser(description,data,runmode);
         break;
     case 'click':
-      cy.log('inside switch click  '+  ob1);
-      status = actionobj.click(description,ob1,runmode );
-      break; 
+        cy.log('inside switch click  '+  ob1);
+        status = actionobj.click(description,ob1,runmode );
+        break; 
     case 'type':
-      cy.log('inside switch type  '+  ob1);
-     status = actionobj.type(description,ob1,data,runmode);
-      break; 
+        cy.log('inside switch type  '+  ob1);
+        status = actionobj.type(description,ob1,data,runmode);
+        break; 
     case 'date':
         cy.log('inside switch date  '+  ob1);
         status = actionobj.date(description,ob1,data,keyword,runmode );
@@ -110,8 +126,9 @@ it('Read from excel, Starting execution on Testcases',  {
         status = actionobj.scroll(description,ob1,runmode)
         break;
     }
+  }
   }else{
-    status="PAUSED"
+        status="PAUSED"
         cy.log(description + " runmode is set to  " + runmode)
   } 
     //logic to store the status of the testcase into TFS Testplan

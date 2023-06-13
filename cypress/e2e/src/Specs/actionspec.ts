@@ -25,7 +25,7 @@ let userdata : any ;
  * @class action
  */
 export class action {
-  //Opening browser
+  //Opening browser method
   openbrowser=(description,data,runmode)=>{
     this.set_variable(description,"FAILED")
       cy.log('in browser')

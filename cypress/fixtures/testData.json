@@ -2,9 +2,9 @@
     {
         "tcid": "TC_01",
         "description": "1.Launch the browser",
-        "keyword": "openbrowser",
-        "data": "https://demoqa.com/",
-        "objectName": "no value",
+        "keyword": "openbrowser,click,click,type,type,type,click,type,date,dropdown,click,uploadfile,type",
+        "data": "https://demoqa.com/,no value,no value,faker,faker,faker,no value,faker,faker,Com,no value,Sample image.png,faker",
+        "objectName": "no value,form_contains,practiceform_contains,first_name,last_name,email,gender,mobile_number,dob,subject,hobbies,upload,address",
         "runmode": "yes"
     },
     {
@@ -13,7 +13,7 @@
         "keyword": "click",
         "data": "no value",
         "objectName": "form_contains",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_03",
@@ -21,7 +21,7 @@
         "keyword": "click",
         "data": "no value",
         "objectName": "practiceform_contains",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_04",
@@ -29,7 +29,7 @@
         "keyword": "type",
         "data": "faker",
         "objectName": "first_name",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_05",
@@ -37,7 +37,7 @@
         "keyword": "type",
         "data": "faker",
         "objectName": "last_name",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_06",
@@ -45,7 +45,7 @@
         "keyword": "type",
         "data": "faker",
         "objectName": "email",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_07",
@@ -53,7 +53,7 @@
         "keyword": "click",
         "data": "no value",
         "objectName": "gender",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_08",
@@ -61,7 +61,7 @@
         "keyword": "type",
         "data": "faker",
         "objectName": "mobile_number",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_09",
@@ -69,7 +69,7 @@
         "keyword": "date",
         "data": "faker",
         "objectName": "dob",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_10",
@@ -83,9 +83,9 @@
         "tcid": "TC_11",
         "description": "11.Dynamic dropdown selection ",
         "keyword": "dropdown",
-        "data": "Com,Ma",
+        "data": "Com,Sc",
         "objectName": "subject",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_12",
@@ -93,7 +93,7 @@
         "keyword": "click",
         "data": "no value",
         "objectName": "hobbies",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_13",
@@ -101,7 +101,7 @@
         "keyword": "uploadfile",
         "data": "Sample image.png",
         "objectName": "upload",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "TC_14",
@@ -109,6 +109,6 @@
         "keyword": "type",
         "data": "faker",
         "objectName": "address",
-        "runmode": "yes"
+        "runmode": "no"
     }
 ]
