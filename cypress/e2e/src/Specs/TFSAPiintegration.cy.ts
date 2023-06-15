@@ -128,7 +128,7 @@ const get_testsuite_details=(planID)=> {
   
 }
 
- export const UpdateStatusintoTFS=(description,status,ob1)=>{
+ export const UpdateStatusintoTFS=(description,status,ob1,filename)=>{
   //getting planid and suiteid from json
  cy.log("###################Description  is : "+ description)
   cy.log(description+  "**************\n the status of the testcase is : "+status)
@@ -146,7 +146,7 @@ const get_testsuite_details=(planID)=> {
          pointID=response
          cy.log("The pointID is : "+pointID)
          //creating run using pointID to get runid for the each cases in respective plan
-         createRun(pointID,planID,description,status)
+         createRun(pointID,planID,description,status,filename)
         })
       }
     }
@@ -171,7 +171,7 @@ const getPointIDfromAzure=(testcaseID,status,planID,suitID)=>{
 }
 
 
-const createRun= (pointID,planID,description,status)=>{
+const createRun= (pointID,planID,description,status,filename)=>{
   //https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/runs?api-version=7.0
    cy.request({
      method:'POST',
@@ -198,7 +198,7 @@ const createRun= (pointID,planID,description,status)=>{
         resultID=result
         cy.log("the result id is : "+resultID)
         //Updating Status Passed or Failed into TFS PATCH Call
-       updateResult(runID,resultID,status,description)
+       updateResult(runID,resultID,status,description,filename)
       })
      
   })
@@ -220,7 +220,7 @@ const gettestResultID= (runID)=>{
 })
 }
 
-const updateResult= (runID,resultID,status,description)=>{
+const updateResult= (runID,resultID,status,description,filename)=>{
 var comment 
 var bugid
 //When Case is passed 
@@ -247,7 +247,7 @@ var bugid
   })
   }// when case is failed creating bug and mapping it results of testcaserun
   else if(status.toString()==="FAILED"){
-    createBug(description)
+    createBug(description,filename)
     cy.task('getUserData').then((userData : string) => {
       bugid=userData
       cy.log("The bug id is : "+bugid)
@@ -305,7 +305,7 @@ var bugid
 
 }
 
-const createBug=(description)=>{
+const createBug=(description,filename)=>{
   cy.log("Bug is getting created for "+description)
   cy.request({
     method:'POST',

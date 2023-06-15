@@ -11,6 +11,7 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
  let status ="FAILED"
  var description;
  var ob1;
+ var filename;
  
   
 beforeEach('Generating faker data everytime ',()=>{
@@ -134,7 +135,7 @@ it('Read from excel, Starting execution on Testcases',  {
   } 
   
     //logic to store the status of the testcase into TFS Testplan
-       UpdateStatusintoTFS(description,status,ob1) 
+       UpdateStatusintoTFS(description,status,ob1,"") 
   }
     })
     
@@ -142,6 +143,12 @@ it('Read from excel, Starting execution on Testcases',  {
   })
 
   after('Clearing local storage ',function(){
+
+    //if blocked used only when cypress getting failed and stopped 
+    if(this.currentTest.state==="failed"){
+      cy.log("Printing screenshot")
+      cy.screenshot("Failed screenshot"+description+" - Fieldname - "+ob1)
+    }
     cy.log(status)
     cy.task('getUserData').then((userData : string) => {
       cy.log("userdata is "+userData);
@@ -150,7 +157,9 @@ it('Read from excel, Starting execution on Testcases',  {
       description=desc[0]
       status=desc[1]
       cy.log(description+ "^^^^^^^^^^^^^"+status)
-      UpdateStatusintoTFS(description,status,ob1)
+      filename="Failed screenshot"+description+" - status :  - "+status
+      cy.screenshot(filename)
+      UpdateStatusintoTFS(description,status,ob1,filename)
       }
       // voila! Stored data between two .spec files
     });
