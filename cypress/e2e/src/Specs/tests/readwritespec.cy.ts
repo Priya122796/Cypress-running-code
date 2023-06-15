@@ -10,9 +10,10 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
  let index=0;
  let status ="FAILED"
  var description;
+ var ob1;
  
   
-  beforeEach('Generating faker data everytime ',()=>{
+beforeEach('Generating faker data everytime ',()=>{
 //Handling failed test
 //cy.wrap(failedTest).should('be.undefined')
     // 1.getting faker data generated dynamically using faker,json
@@ -84,7 +85,7 @@ it('Read from excel, Starting execution on Testcases',  {
     data_array.forEach(element => {
       cy.log("The data is ",element)
     });
-    var ob1:string=json[j].objectName;
+     ob1=json[j].objectName;
     var obj_array=ob1.split(",")
    obj_array.forEach(element => {
     cy.log("The object array is : "+element)
@@ -99,7 +100,7 @@ it('Read from excel, Starting execution on Testcases',  {
       switch (keyword) {
     case 'openbrowser':
         cy.log('inside switch openbrowser   '+  ob1);
-        status = actionobj.openbrowser(description,data,runmode);
+        status = actionobj.openbrowser(description,data,runmode,keyword);
         break;
     case 'click':
         cy.log('inside switch click  '+  ob1);
@@ -131,8 +132,9 @@ it('Read from excel, Starting execution on Testcases',  {
         status="PAUSED"
         cy.log(description + " runmode is set to  " + runmode)
   } 
+  
     //logic to store the status of the testcase into TFS Testplan
-       UpdateStatusintoTFS(description,status) 
+       UpdateStatusintoTFS(description,status,ob1) 
   }
     })
     
@@ -148,7 +150,7 @@ it('Read from excel, Starting execution on Testcases',  {
       description=desc[0]
       status=desc[1]
       cy.log(description+ "^^^^^^^^^^^^^"+status)
-      UpdateStatusintoTFS(description,status)
+      UpdateStatusintoTFS(description,status,ob1)
       }
       // voila! Stored data between two .spec files
     });

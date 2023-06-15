@@ -26,7 +26,8 @@ let userdata : any ;
  */
 export class action {
   //Opening browser method
-  openbrowser=(description,data,runmode)=>{
+  openbrowser=(description,data,runmode,keyword)=>{
+    description=description+" Fieldname - "+keyword
     this.set_variable(description,"FAILED")
       cy.log('in browser')
       cy.visit(data)
@@ -38,6 +39,7 @@ export class action {
 //click action with get and contains
   click=(description,objname,runmode)=>{
    // cy.log(Object.values(objname))
+   description=description+" :  Fieldname - "+objname+" "
    this.set_variable(description,"FAILED")
     var regex : string = objname
    // let regex = new  RegEx('bc*d')
@@ -58,12 +60,13 @@ export class action {
 }
 //type method 
 type=(description,objname,data,runmode)=>{
+  description=description+" :  Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
     if(data.includes( "faker")){
 
       // if(objname.includes("last"))
       // cy.task('setUserData', description)
-      //handling error 
+      //handling error and complete run without failing the execution 
       Cypress.on('fail', (error, runnable) => {
        // this.failed_cases(description)
          if (!error.message.includes(' but never found it')) {
@@ -86,7 +89,7 @@ type=(description,objname,data,runmode)=>{
       cy.get(getselector(objname)).type(userdata)
       
          
-      cy.screenshot(description,{capture : 'runner'})
+      cy.screenshot(description)
       })
       this.set_variable(description,"PASSED")
       runmode="PASSED"
@@ -97,6 +100,7 @@ type=(description,objname,data,runmode)=>{
 }
 // radio button check method
 date=(description,objname,data,keyword,runmode)=>{
+  description=description+" :  Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
   var regex : string = objname
   if(regex.includes("dob")){
@@ -119,6 +123,7 @@ date=(description,objname,data,keyword,runmode)=>{
 }
 //uploading file from cypress-file-upload external package 
 uploadfile=(description,objname,data,keyword,runmode)=>{
+  description=description+" :  Fieldname - "+objname+" "
   this.set_variable(description,"FAILED") 
   var regex : string = objname
   if(regex.includes("upload")){
@@ -132,6 +137,7 @@ uploadfile=(description,objname,data,keyword,runmode)=>{
 }
 //selecting dynamic dropdown by type,search,select
 dropdown=(description,objname,data,keyword,runmode)=>{
+  description=description+" :  Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
   var arr:[]=data.split(',')
   var regex : string = objname
@@ -142,11 +148,12 @@ dropdown=(description,objname,data,keyword,runmode)=>{
       //handling dynamic dropdown [without select tag]with tab key 
        cy.get(getselector(objname)).type(element+'{downArrow}{enter}')
     //  cy.get(keyword).should('be.visible').click();
-    cy.screenshot(description+"   "+element)   
+    cy.screenshot(description)
     });
     //removing added last dropdown selection  without select tag
     cy.get(getselector(keyword)).should('be.visible').click({force:true});
-    cy.screenshot("removing last added dropdown selection"+description)
+    cy.screenshot(description)
+
     this.set_variable(description,"PASSED")
     runmode="PASSED"
     return runmode
@@ -154,6 +161,7 @@ dropdown=(description,objname,data,keyword,runmode)=>{
     cy.log("Inside select dropdown check "+ description+"\n"+objname);
     cy.get(getselector(objname)).type(data+'{downArrow}{enter}')
     cy.screenshot(description+"   "+objname)
+ 
     this.set_variable(description,"PASSED")
     runmode="PASSED"
     return runmode
@@ -168,12 +176,12 @@ dropdown=(description,objname,data,keyword,runmode)=>{
 
 //Scroll to the last element
 scroll=(description,objname,runmode)=>{
+  description=description+" :  Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
   var regex : string = objname
   cy.log("Inside contains"+description+"\n"+objname)
   cy.contains(getselector(objname)).scrollIntoView()
-  cy.screenshot(description,{capture : 'runner'})
-  var desc =description+"&&PASSED"
+  cy.screenshot(description)
   this.set_variable(description,"PASSED")
   runmode="PASSED"
   return runmode

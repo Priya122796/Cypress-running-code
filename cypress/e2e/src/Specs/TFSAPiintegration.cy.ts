@@ -128,9 +128,9 @@ const get_testsuite_details=(planID)=> {
   
 }
 
- export const UpdateStatusintoTFS=(description,status)=>{
+ export const UpdateStatusintoTFS=(description,status,ob1)=>{
   //getting planid and suiteid from json
- 
+ cy.log("###################Description  is : "+ description)
   cy.log(description+  "**************\n the status of the testcase is : "+status)
   var temp
   cy.fixture('tfsdetails').then((json) => {
@@ -139,7 +139,7 @@ const get_testsuite_details=(planID)=> {
    })   
    cy.fixture('tfstestsuite').then((json) => {
     for(let j in json){
-      if(description.toString()===(json[j].test_name.toString())){
+      if(description.toString().includes(json[j].test_name.toString())){
         cy.log(json[j].test_name)
         //getting point iD to initiate Create Run method 
         getPointIDfromAzure(json[j].test_id,status,planID,suitID).then((response)=>{
@@ -181,7 +181,7 @@ const createRun= (pointID,planID,description,status)=>{
       },
      body :
      {
-        "name": description+new Date(),
+        "name": description+" "+new Date(),
         "plan": {
           "id": planID
          },
