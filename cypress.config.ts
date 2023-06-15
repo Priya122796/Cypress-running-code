@@ -46,7 +46,7 @@ const { defineConfig } = require("cypress");
 function getDataFromHtmlWatchlistIntoJson() {
   const XLSX = require("xlsx");
 
-  const filePath = path.resolve(__dirname, "C:\\Nodejs_training\\Cypress_1.0\\Cypress_running_code\\TestcaseSuite.xlsx")
+  const filePath = path.resolve(__dirname, "TestcaseSuite.xlsx")
  
   const workbook = XLSX.readFile(filePath);
 
@@ -61,7 +61,7 @@ function getDataFromHtmlWatchlistIntoJson() {
 function getTFSdetailsIntoJson() {
   const XLSX = require("xlsx");
 
-  const filePath = path.resolve(__dirname, "C:\\Nodejs_training\\Cypress_1.0\\Cypress_running_code\\cypress\\fixtures\\sampleFile.xlsx")
+  const filePath = path.resolve(__dirname, "cypress/fixtures/sampleFile.xlsx")
  
   const workbook = XLSX.readFile(filePath);
 
