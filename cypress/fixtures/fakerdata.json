@@ -1,203 +1,102 @@
 [
 	{
-<<<<<<< HEAD
-		"id": "3",
-		"first_name": "Danny",
-		"last_name": "Durgan",
-		"email": "Esta.Crooks@gmail.com",
-		"mobile_number": "5014569985",
-		"dob": "1982-09-10T22:13:03.143Z",
-		"address": "Suite 184",
-		"state": "Connecticut"
-	},
-	{
-		"id": "3",
-		"first_name": "Emie",
-		"last_name": "Powlowski",
-		"email": "Norwood_Bartell@gmail.com",
-		"mobile_number": "5016158271",
-		"dob": "1959-08-30T12:55:45.015Z",
-		"address": "Suite 444",
-		"state": "Alabama"
-	},
-	{
 		"id": "2",
-		"first_name": "Ivy",
-		"last_name": "Senger",
-		"email": "Tatum73@yahoo.com",
-		"mobile_number": "5016198604",
-		"dob": "2011-08-05T22:31:35.410Z",
-		"address": "Apt. 158",
-		"state": "Kansas"
+		"first_name": "Jonas",
+		"last_name": "Yundt",
+		"email": "Eldon6@gmail.com",
+		"mobile_number": "5014511544",
+		"dob": "1971-10-08T22:44:04.301Z",
+		"address": "Apt. 746",
+		"state": "Arkansas"
 	},
 	{
-		"id": "8",
-		"first_name": "Kristina",
-		"last_name": "Cormier",
-		"email": "Chaim_Maggio82@hotmail.com",
-		"mobile_number": "5019859456",
-		"dob": "1996-07-20T12:34:57.779Z",
-		"address": "Suite 952",
-		"state": "Vermont"
+		"id": "6",
+		"first_name": "Mireille",
+		"last_name": "Franey",
+		"email": "Amalia_Lemke@hotmail.com",
+		"mobile_number": "5018906053",
+		"dob": "1989-08-11T06:31:01.862Z",
+		"address": "Apt. 795",
+		"state": "Florida"
 	},
 	{
-		"id": "2",
-		"first_name": "Asia",
-		"last_name": "Cummerata",
-		"email": "Elliott.Heller@hotmail.com",
-		"mobile_number": "5013011573",
-		"dob": "1987-06-01T19:02:06.610Z",
-		"address": "Apt. 065",
-		"state": "Louisiana"
+		"id": "3",
+		"first_name": "Walter",
+		"last_name": "Bode",
+		"email": "Aimee.Tremblay52@gmail.com",
+		"mobile_number": "5015065513",
+		"dob": "2007-06-27T11:51:10.911Z",
+		"address": "Suite 627",
+		"state": "Virginia"
 	},
 	{
 		"id": "1",
-		"first_name": "Elsa",
-		"last_name": "Durgan",
-		"email": "Cortney.Schaden@yahoo.com",
-		"mobile_number": "5013750861",
-		"dob": "1990-12-21T17:48:58.714Z",
-		"address": "Apt. 857",
-		"state": "New Hampshire"
-	},
-	{
-		"id": "6",
-		"first_name": "Ivah",
-		"last_name": "McClure",
-		"email": "Georgianna13@hotmail.com",
-		"mobile_number": "5015045202",
-		"dob": "1999-07-12T08:21:55.539Z",
-		"address": "Suite 547",
-		"state": "Missouri"
-	},
-	{
-		"id": "6",
-		"first_name": "Vincenza",
-		"last_name": "Abernathy",
-		"email": "Loy7@hotmail.com",
-		"mobile_number": "5018128348",
-		"dob": "1978-03-01T17:21:25.783Z",
-		"address": "Apt. 053",
-		"state": "Wyoming"
-	},
-	{
-		"id": "6",
-		"first_name": "Aaron",
-		"last_name": "Ziemann",
-		"email": "Shanelle_Wolff@hotmail.com",
-		"mobile_number": "5018566721",
-		"dob": "2000-02-28T05:04:39.839Z",
-		"address": "Suite 426",
-		"state": "Massachusetts"
+		"first_name": "Jacey",
+		"last_name": "Prohaska",
+		"email": "Nash_Tremblay73@gmail.com",
+		"mobile_number": "5013184425",
+		"dob": "1964-03-24T04:14:59.946Z",
+		"address": "Apt. 632",
+		"state": "Vermont"
 	},
 	{
 		"id": "9",
-		"first_name": "Avery",
-		"last_name": "O'Keefe",
-		"email": "Moses80@hotmail.com",
-		"mobile_number": "5017083659",
-		"dob": "1984-08-25T16:57:52.806Z",
-		"address": "Apt. 366",
-		"state": "Iowa"
-=======
-		"id": "6",
-		"first_name": "Amiya",
-		"last_name": "Veum",
-		"email": "Morton.Hauck@yahoo.com",
-		"mobile_number": "5019558654",
-		"dob": "2005-12-24T23:25:38.194Z",
-		"address": "Suite 626",
-		"state": "Louisiana"
+		"first_name": "Pearl",
+		"last_name": "Rogahn",
+		"email": "Lottie93@hotmail.com",
+		"mobile_number": "5018156989",
+		"dob": "1979-08-20T13:17:39.248Z",
+		"address": "Apt. 528",
+		"state": "Michigan"
+	},
+	{
+		"id": "5",
+		"first_name": "Jana",
+		"last_name": "McClure",
+		"email": "Rubye_Green46@hotmail.com",
+		"mobile_number": "5013071077",
+		"dob": "2020-01-26T20:33:17.276Z",
+		"address": "Suite 356",
+		"state": "New York"
 	},
 	{
 		"id": "8",
-		"first_name": "Wyatt",
-		"last_name": "Nicolas",
-		"email": "Brycen_Stark29@gmail.com",
-		"mobile_number": "5011809848",
-		"dob": "1968-04-30T02:15:23.557Z",
-		"address": "Suite 995",
-		"state": "South Carolina"
+		"first_name": "Nash",
+		"last_name": "Shields",
+		"email": "Liliane38@gmail.com",
+		"mobile_number": "5013715776",
+		"dob": "1995-12-19T02:07:48.025Z",
+		"address": "Suite 993",
+		"state": "Nevada"
 	},
 	{
-		"id": "7",
-		"first_name": "Corene",
-		"last_name": "Shields",
-		"email": "Lucile_Denesik@gmail.com",
-		"mobile_number": "5015928218",
-		"dob": "1953-11-01T18:21:53.744Z",
-		"address": "Apt. 189",
-		"state": "Indiana"
+		"id": "5",
+		"first_name": "Charlotte",
+		"last_name": "Wintheiser",
+		"email": "Greg_Bruen85@gmail.com",
+		"mobile_number": "5016552123",
+		"dob": "1982-07-22T04:46:53.895Z",
+		"address": "Suite 678",
+		"state": "Maryland"
 	},
 	{
 		"id": "2",
-		"first_name": "Everett",
-		"last_name": "Kling",
-		"email": "Kelsie_Goyette@hotmail.com",
-		"mobile_number": "5012342550",
-		"dob": "1968-10-09T14:50:06.604Z",
-		"address": "Apt. 087",
-		"state": "Missouri"
+		"first_name": "Harold",
+		"last_name": "Von",
+		"email": "Jimmy49@yahoo.com",
+		"mobile_number": "5013813023",
+		"dob": "2013-10-15T16:13:44.185Z",
+		"address": "Suite 407",
+		"state": "Rhode Island"
 	},
 	{
 		"id": "3",
-		"first_name": "Aron",
-		"last_name": "Anderson",
-		"email": "Dell.Beatty16@hotmail.com",
-		"mobile_number": "5011398342",
-		"dob": "1992-01-16T08:36:58.837Z",
-		"address": "Apt. 977",
-		"state": "Alabama"
-	},
-	{
-		"id": "5",
-		"first_name": "Nella",
-		"last_name": "Hilpert",
-		"email": "Joana.Harber@yahoo.com",
-		"mobile_number": "5017705101",
-		"dob": "2003-07-15T05:59:45.623Z",
-		"address": "Apt. 757",
-		"state": "Colorado"
-	},
-	{
-		"id": "3",
-		"first_name": "Percival",
-		"last_name": "Mante",
-		"email": "Jaquan_Casper@hotmail.com",
-		"mobile_number": "5016297797",
-		"dob": "1951-11-06T20:31:23.014Z",
-		"address": "Apt. 039",
-		"state": "Pennsylvania"
-	},
-	{
-		"id": "5",
-		"first_name": "Imelda",
-		"last_name": "Rempel",
-		"email": "Oran9@hotmail.com",
-		"mobile_number": "5018902175",
-		"dob": "2006-02-07T09:41:52.001Z",
-		"address": "Suite 618",
-		"state": "Oregon"
-	},
-	{
-		"id": "4",
-		"first_name": "Albertha",
-		"last_name": "Tillman",
-		"email": "Anahi.Bailey58@hotmail.com",
-		"mobile_number": "5019113396",
-		"dob": "1959-06-20T23:38:50.505Z",
-		"address": "Suite 068",
-		"state": "Illinois"
-	},
-	{
-		"id": "7",
-		"first_name": "Jana",
-		"last_name": "Towne",
-		"email": "Florine_Aufderhar65@hotmail.com",
-		"mobile_number": "5018550084",
-		"dob": "2010-04-03T00:49:51.128Z",
-		"address": "Apt. 275",
-		"state": "Alabama"
->>>>>>> c63174b68d346e53e940b82cababa115d4ee2e76
+		"first_name": "Stephany",
+		"last_name": "Wolf",
+		"email": "Esteban.Stiedemann@yahoo.com",
+		"mobile_number": "5018065587",
+		"dob": "1994-11-28T17:20:22.148Z",
+		"address": "Suite 134",
+		"state": "Rhode Island"
 	}
 ]
