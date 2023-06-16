@@ -39,7 +39,7 @@ export class action {
 //click action with get and contains
   click=(description,objname,runmode)=>{
    // cy.log(Object.values(objname))
-   description=description+" :  Fieldname - "+objname+" "
+   description=description+"   Fieldname - "+objname+" "
    this.set_variable(description,"FAILED")
     var regex : string = objname
    // let regex = new  RegEx('bc*d')
@@ -60,7 +60,7 @@ export class action {
 }
 //type method 
 type=(description,objname,data,runmode)=>{
-  description=description+" :  Fieldname - "+objname+" "
+  description=description+"   Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
     if(data.includes( "faker")){
 
@@ -100,7 +100,7 @@ type=(description,objname,data,runmode)=>{
 }
 // radio button check method
 date=(description,objname,data,keyword,runmode)=>{
-  description=description+" :  Fieldname - "+objname+" "
+  description=description+"   Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
   var regex : string = objname
   if(regex.includes("dob")){
@@ -123,7 +123,7 @@ date=(description,objname,data,keyword,runmode)=>{
 }
 //uploading file from cypress-file-upload external package 
 uploadfile=(description,objname,data,keyword,runmode)=>{
-  description=description+" :  Fieldname - "+objname+" "
+  description=description+"   Fieldname - "+objname+" "
   this.set_variable(description,"FAILED") 
   var regex : string = objname
   if(regex.includes("upload")){
@@ -137,7 +137,7 @@ uploadfile=(description,objname,data,keyword,runmode)=>{
 }
 //selecting dynamic dropdown by type,search,select
 dropdown=(description,objname,data,keyword,runmode)=>{
-  description=description+" :  Fieldname - "+objname+" "
+  description=description+"   Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
   var arr:[]=data.split(',')
   var regex : string = objname
@@ -176,7 +176,7 @@ dropdown=(description,objname,data,keyword,runmode)=>{
 
 //Scroll to the last element
 scroll=(description,objname,runmode)=>{
-  description=description+" :  Fieldname - "+objname+" "
+  description=description+"   Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
   var regex : string = objname
   cy.log("Inside contains"+description+"\n"+objname)

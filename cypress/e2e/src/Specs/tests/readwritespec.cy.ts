@@ -157,7 +157,7 @@ it('Read from excel, Starting execution on Testcases',  {
       description=desc[0]
       status=desc[1]
       cy.log(description+ "^^^^^^^^^^^^^"+status)
-      filename="Failed screenshot"+description+" - status :  - "+status
+      filename="Failed screenshot "+description
       cy.screenshot(filename)
       UpdateStatusintoTFS(description,status,ob1,filename)
       }
