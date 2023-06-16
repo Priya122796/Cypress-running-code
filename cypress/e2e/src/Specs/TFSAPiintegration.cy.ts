@@ -1,8 +1,11 @@
 
 
 import { Selector } from "../page-objects/Selectors";
+import * as fs from 'fs';
 //import { getPointIDfromAzure } from "../page-objects/Automation";
 
+
+//const fileContent = fs.readFileSync(file1);
 let planID : any, suitID : any, testcasecount : any
 let index=0;
 let testcaseID_List :any
@@ -128,9 +131,9 @@ const get_testsuite_details=(planID)=> {
   
 }
 
- export const UpdateStatusintoTFS=(description,status)=>{
+ export const UpdateStatusintoTFS=(description,status,ob1,filename)=>{
   //getting planid and suiteid from json
- 
+ cy.log("###################Description  is : "+ description)
   cy.log(description+  "**************\n the status of the testcase is : "+status)
   var temp
   cy.fixture('tfsdetails').then((json) => {
@@ -139,14 +142,14 @@ const get_testsuite_details=(planID)=> {
    })   
    cy.fixture('tfstestsuite').then((json) => {
     for(let j in json){
-      if(description.toString()===(json[j].test_name.toString())){
+      if(description.toString().includes(json[j].test_name.toString())){
         cy.log(json[j].test_name)
         //getting point iD to initiate Create Run method 
         getPointIDfromAzure(json[j].test_id,status,planID,suitID).then((response)=>{
          pointID=response
          cy.log("The pointID is : "+pointID)
          //creating run using pointID to get runid for the each cases in respective plan
-         createRun(pointID,planID,description,status)
+         createRun(pointID,planID,description,status,filename)
         })
       }
     }
@@ -171,7 +174,7 @@ const getPointIDfromAzure=(testcaseID,status,planID,suitID)=>{
 }
 
 
-const createRun= (pointID,planID,description,status)=>{
+const createRun= (pointID,planID,description,status,filename)=>{
   //https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/runs?api-version=7.0
    cy.request({
      method:'POST',
@@ -181,7 +184,7 @@ const createRun= (pointID,planID,description,status)=>{
       },
      body :
      {
-        "name": description+new Date(),
+        "name": description+" "+new Date(),
         "plan": {
           "id": planID
          },
@@ -198,7 +201,7 @@ const createRun= (pointID,planID,description,status)=>{
         resultID=result
         cy.log("the result id is : "+resultID)
         //Updating Status Passed or Failed into TFS PATCH Call
-       updateResult(runID,resultID,status,description)
+       updateResult(runID,resultID,status,description,filename)
       })
      
   })
@@ -220,7 +223,7 @@ const gettestResultID= (runID)=>{
 })
 }
 
-const updateResult= (runID,resultID,status,description)=>{
+const updateResult= (runID,resultID,status,description,filename)=>{
 var comment 
 var bugid
 //When Case is passed 
@@ -247,7 +250,7 @@ var bugid
   })
   }// when case is failed creating bug and mapping it results of testcaserun
   else if(status.toString()==="FAILED"){
-    createBug(description)
+    createBug(description,filename)
     cy.task('getUserData').then((userData : string) => {
       bugid=userData
       cy.log("The bug id is : "+bugid)
@@ -275,6 +278,7 @@ var bugid
   }).then(response => {
     expect(response.status).to.equal(200)
     cy.log("Execution is completed in FAILED  results status ")
+
 
   })
     })
@@ -305,7 +309,7 @@ var bugid
 
 }
 
-const createBug=(description)=>{
+const createBug=(description,filename)=>{
   cy.log("Bug is getting created for "+description)
   cy.request({
     method:'POST',
@@ -364,10 +368,59 @@ const createBug=(description)=>{
   expect(response.status).to.equal(200)
   cy.log("The bug id is : "+response.body.id)
   cy.task('setUserData', response.body.id.toString()) 
+//  create_attachment(description,filename)
 })
 }
   
 
-
+const create_attachment=(description,filename)=>{
+  cy.log("Creating attachment with filename  "+filename)
+ const file1='/cypress/fixtures/Sampleimage.png'
+ cy.log("Location of the file :"+file1)
+ cy.readFile(file1, 'binary').then((fileContent) => {
+  //const fileContent = fs.readFileSync('/cypress/fixtures/Sampleimage.png')
+ // filename='Failed screenshot14.Entering Address - Fieldname - address.png'
+  //cy.fixture('Sampleimage.png').then( image => {
+  // cy.fixture('Sampleimage.png','binary').then( image => {
+  //   const blob = new Blob([image], { type: 'image/png' });
+    const blob = Cypress.Blob.binaryStringToBlob(fileContent, 'image/png');
+    const formData = new FormData();
+  //  cy.log(blob.toString())
+    formData.append('', blob, fileContent  );
+  cy.request({
+    method:'POST',
+    url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro//_apis/wit/attachments?fileName=imageAsFileAttachment.png&api-version=6.0',
+   //encoding: 'binary',
+      headers: {
+        authorization: getselector(auth),
+        'Content-Type':'application/octet-stream'
+      },
+     body:fileContent,
+  })
+}).then(response => {
+    cy.log("The Attachment url is  : "+response.body.url)
+    //cy.log(response.body)
+  })
  
+}
+// const fs = require('fs');
 
+// // Read the binary file and get its content as a Buffer
+// const filePath = '/path/to/binary/file.bin';
+// const fileContent = fs.readFileSync(filePath);
+
+// // Create the attachment
+// cy.request({
+//   method: 'POST',
+//   url: 'https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/fileServices/{fileServiceName}/shares/{shareName}/directories/{directoryPath}/files/{fileName}?api-version=2021-02-01',
+//   headers: {
+//     'Authorization': 'Bearer yourAccessToken',
+//     'Content-Type': 'application/octet-stream'
+//   },
+//   body: fileContent
+// })
+// .then((response) => {
+//   // Handle the response
+//   // For example, check the status code
+//   expect(response.status).to.eq(201);
+// });
