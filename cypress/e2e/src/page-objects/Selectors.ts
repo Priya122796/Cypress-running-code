@@ -20,17 +20,19 @@
     address='#currentAddress',
     state='#state > .css-yk16xz-control',
     city='#city > .css-yk16xz-control',
-    close_contains='Close',
-    book_contains='Book Store Application',
-    login_contains='Login',
-    register='#newUser',
-    username='#userName',
     basic_auth='Basic OmphdDVqeG02bnk1eGp2emFqamttcXRsYWtxb2xtMmY0c3k2ZmwzYmo0eTR1ZWtlbjZoc3E=',
     keyvault_name='Advaprokeyvault',
     tenant_id='1da53bfb-aa20-4fa2-bb8b-65e1f2516714',
     client_id='15dfb74b-9965-4d96-a2f3-c226aebd69d2',
     client_secret='uqB8Q~7u42mlkdcsC38VI.uKvjIQQWSM0q8Lgdg9',
-    key='secretcheck'
+    key='secretcheck',
+    //ADvapro credentials
+    url="https://adva-pro-dev01.paradigmcentral.com/#/",
+    username='OpsAdvaQAAutomation@paradigmcorp.com',
+    password='CoffeeTrainEarthWater',
+    login = '#logintag',
+    mainmenu='#menu-active',
+    backbutton='#idBtn_Back'
   };  
 
 
