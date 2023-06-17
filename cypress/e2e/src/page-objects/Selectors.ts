@@ -25,7 +25,7 @@
     login_contains='Login',
     register='#newUser',
     username='#userName',
-    basic_auth='Basic OmkzaDUydmNwdmR1ZWc1YnQ2eHQ0NWkyMzR6czM1ajdzdmd1eWZzdzNxNXdlbWtwbW50Y2E=',
+    basic_auth='Basic OmphdDVqeG02bnk1eGp2emFqamttcXRsYWtxb2xtMmY0c3k2ZmwzYmo0eTR1ZWtlbjZoc3E=',
     keyvault_name='Advaprokeyvault',
     tenant_id='1da53bfb-aa20-4fa2-bb8b-65e1f2516714',
     client_id='15dfb74b-9965-4d96-a2f3-c226aebd69d2',
