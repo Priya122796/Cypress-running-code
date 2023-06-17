@@ -135,7 +135,7 @@ it('Read from excel, Starting execution on Testcases',  {
   } 
   
     //logic to store the status of the testcase into TFS Testplan
-       UpdateStatusintoTFS(description,status,ob1,"") 
+    //   UpdateStatusintoTFS(description,status,ob1,"") 
   }
     })
     
@@ -159,7 +159,7 @@ it('Read from excel, Starting execution on Testcases',  {
       cy.log(description+ "^^^^^^^^^^^^^"+status)
       filename="Failed screenshot "+description
       cy.screenshot(filename)
-      UpdateStatusintoTFS(description,status,ob1,filename)
+   //   UpdateStatusintoTFS(description,status,ob1,filename)
       }
       // voila! Stored data between two .spec files
     });

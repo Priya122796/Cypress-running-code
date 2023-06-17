@@ -37,7 +37,7 @@ const getselector=function(objname):string {
   cy.log("Printing inside get_testplan_details")
     cy.request({
       method:'GET',
-      url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/872?api-version=5.0',
+      url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/plans/108846?api-version=5.0',
         headers: {
           authorization: getselector(auth)
         },
@@ -58,15 +58,18 @@ const get_testsuite_details=(planID)=> {
       
     cy.request({
       method:'GET',
-      url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/'+planID+'/suites?api-version=5.0',
+      url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/plans/'+planID+'/suites?api-version=5.0',
         headers: {
           authorization: getselector(auth)
         },
   }).then(response => {
-     expect(response.status).to.equal(200),
-     expect(response.body.value[2].name).to.equal("Testscript integration")
-     suitID=response.body.value[2].id  
-     cy.log(suitID)
+     expect(response.status).to.equal(200)
+     var arraylength = response.body.value.length
+     cy.log(response.body)
+     console.log("The lenght of the body is : "+arraylength)
+    expect(response.body.value[375].name).to.contains("Login,Logout and Client Regression Automation")
+     suitID=response.body.value[375].id  
+    //  cy.log(suitID)
      cy.writeFile('cypress/fixtures/sampleFile.xlsx','PlanID'+'\t'+'SuiteID'+'\n')
      cy.writeFile('cypress/fixtures/sampleFile.xlsx',planID+'\t'+suitID ,{flag : 'a+'})
      get_testcaseID_List(planID,suitID)
@@ -78,7 +81,7 @@ const get_testsuite_details=(planID)=> {
    const get_testcaseID_List=(planID,suitID) =>{
     cy.request({
       method:'GET',         
-      url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/'+planID+'/suites/'+suitID+'/testcases?api-version=5.0',
+      url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/plans/'+planID+'/suites/'+suitID+'/testcases?api-version=5.0',
         headers: {
           authorization: getselector(auth)
         },
@@ -107,7 +110,7 @@ const get_testsuite_details=(planID)=> {
       cy.request({
         method:'GET',
         //GET https://dev.azure.com/{organization}/{project}/_apis/testplan/Plans/{planId}/Suites/{suiteId}/TestCase/{testCaseId_ListtestcaseID_List}?api-version=7.0
-        url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/testplan/Plans/'+planID+'/suites/'+suitID+'/testcase/'+id_element+'?api-version=7.0',
+        url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/testplan/Plans/'+planID+'/suites/'+suitID+'/testcase/'+id_element+'?api-version=7.0',
           headers: {
             authorization: getselector(auth)
           },
