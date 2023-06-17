@@ -1,8 +1,9 @@
+///<reference types="cypress"/>
 // Name: LoginAzure
 // Description: Login into the ADvapro application using Automation credentails 
-// Prerequisite: none 
+// Prerequisite: visit advapro url and click login button  
 Cypress.Commands.add('LoginAzure', function () {
-
+  cy.get('#logintag').click({timeout:2000});
     var username='OpsAdvaQAAutomation@paradigmcorp.com',
     password='CoffeeTrainEarthWater'
     cy.origin(
@@ -18,7 +19,7 @@ Cypress.Commands.add('LoginAzure', function () {
           // 
           //
           cy.wait(7000)
-          cy.get('#idBtn_Back',{timeout:4000}).click()
+          cy.get('#idBtn_Back').click({timeout:6000})
           cy.get('#otherTileText').click({timeout:3000})
           cy.get('input[type="email"]').type(username, {
             log: false,

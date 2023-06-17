@@ -164,8 +164,8 @@ const getPointIDfromAzure=(testcaseID,status,planID,suitID)=>{
   //getting Pointid from azure API
   return cy.request({
     method:'GET',
-    //https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/872/suites/921/points?testcaseId=928&api-version=5.1
-    url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/'+planID+'/suites/'+suitID+'/points?testcaseID='+testcaseID+'&api-version=5.1',
+    //https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/plans/872/suites/921/points?testcaseId=928&api-version=5.1
+    url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/plans/'+planID+'/suites/'+suitID+'/points?testcaseID='+testcaseID+'&api-version=5.1',
     headers: {
         authorization: getselector(auth)
       },
@@ -178,10 +178,10 @@ const getPointIDfromAzure=(testcaseID,status,planID,suitID)=>{
 
 
 const createRun= (pointID,planID,description,status,filename)=>{
-  //https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/runs?api-version=7.0
+  //https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/runs?api-version=7.0
    cy.request({
      method:'POST',
-     url : 'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/runs?api-version=7.0',
+     url : 'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/runs?api-version=7.0',
      headers: {
         authorization: getselector(auth)
       },
@@ -213,8 +213,8 @@ const createRun= (pointID,planID,description,status,filename)=>{
 const gettestResultID= (runID)=>{
    return cy.request({
     method:'GET',
-    ////https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/Runs/80/results?api-version=7.0
-    url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/Runs/'+runID+'/results?api-version=7.0',
+    ////https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/Runs/80/results?api-version=7.0
+    url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/Runs/'+runID+'/results?api-version=7.0',
       headers: {
         authorization: getselector(auth)
       },
@@ -235,7 +235,7 @@ var bugid
     cy.request({
       method:'PATCH',
       //PATCH https://dev.azure.com/{organization}/{project}/_apis/test/Runs/{runId}/results?api-version=7.0
-      url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/Runs/'+runID+'/results?api-version=7.0',
+      url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/Runs/'+runID+'/results?api-version=7.0',
         headers: {
           authorization: getselector(auth)
         },
@@ -253,15 +253,15 @@ var bugid
   })
   }// when case is failed creating bug and mapping it results of testcaserun
   else if(status.toString()==="FAILED"){
-    createBug(description,filename)
+  //  createBug(description,filename)
     cy.task('getUserData').then((userData : string) => {
-      bugid=userData
-      cy.log("The bug id is : "+bugid)
+      // bugid=userData
+      // cy.log("The bug id is : "+bugid)
     comment="Execution Failed!!!"
     cy.request({
       method:'PATCH',
       //PATCH https://dev.azure.com/{organization}/{project}/_apis/test/Runs/{runId}/results?api-version=7.0
-      url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/Runs/'+runID+'/results?api-version=7.0',
+      url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/Runs/'+runID+'/results?api-version=7.0',
         headers: {
           authorization: getselector(auth)
         },
@@ -271,11 +271,6 @@ var bugid
             "outcome":status.toString(),
             "state": "Completed",
             "comment": comment.toString(),
-            "associatedBugs": [
-            {
-              "id": bugid.toString()
-            }
-          ]
         }
           ]
   }).then(response => {
@@ -291,7 +286,7 @@ var bugid
     cy.request({
       method:'PATCH',
       //PATCH https://dev.azure.com/{organization}/{project}/_apis/test/Runs/{runId}/results?api-version=7.0
-      url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/Runs/'+runID+'/results?api-version=7.0',
+      url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/test/Runs/'+runID+'/results?api-version=7.0',
         headers: {
           authorization: getselector(auth)
         },
@@ -316,7 +311,7 @@ const createBug=(description,filename)=>{
   cy.log("Bug is getting created for "+description)
   cy.request({
     method:'POST',
-    url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/wit/workitems/$Bug?api-version=7.0',
+    url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations/_apis/wit/workitems/$Bug?api-version=7.0',
       headers: {
         authorization: getselector(auth),
         'Content-Type':'application/json-patch+json'
@@ -392,7 +387,7 @@ const create_attachment=(description,filename)=>{
     formData.append('', blob, fileContent  );
   cy.request({
     method:'POST',
-    url:'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro//_apis/wit/attachments?fileName=imageAsFileAttachment.png&api-version=6.0',
+    url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations//_apis/wit/attachments?fileName=imageAsFileAttachment.png&api-version=6.0',
    //encoding: 'binary',
       headers: {
         authorization: getselector(auth),

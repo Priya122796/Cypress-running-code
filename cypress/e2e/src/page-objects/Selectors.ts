@@ -20,7 +20,7 @@
     address='#currentAddress',
     state='#state > .css-yk16xz-control',
     city='#city > .css-yk16xz-control',
-    basic_auth='Basic OmphdDVqeG02bnk1eGp2emFqamttcXRsYWtxb2xtMmY0c3k2ZmwzYmo0eTR1ZWtlbjZoc3E=',
+    basic_auth='Basic Oml3NXZyZjNvNzQyeHByN2NqN3R2bXZnZGtzcWxwb3dtanZraHh4bnd0bTdoZzNteXpodHE=',
     keyvault_name='Advaprokeyvault',
     tenant_id='1da53bfb-aa20-4fa2-bb8b-65e1f2516714',
     client_id='15dfb74b-9965-4d96-a2f3-c226aebd69d2',

@@ -9,6 +9,6 @@
    "moduleResolution": "Node"
  //  "experimentalDecorators": true
  },
- "include": ["**/*.ts", "cypress/fixtures/fakerdata.js"]
+ "include": ["**/*.ts", "cypress/fixtures/fakerdata.js", "cypress/support/cmdAdvapro.js"]
 }
 

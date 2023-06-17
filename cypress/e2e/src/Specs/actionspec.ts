@@ -29,13 +29,28 @@ export class action {
   openbrowser=(description,data,runmode,keyword)=>{
     description=description+" Fieldname - "+keyword
     this.set_variable(description,"FAILED")
-      cy.log('in browser')
+      cy.log('in Browser')
+      cy.clearAllLocalStorage()
+      cy.clearAllCookies()
+      cy.clearAllSessionStorage()
       cy.visit(data)
+      cy.LoginAzure()
       cy.screenshot(description)
       this.set_variable(description,"PASSED")
       runmode="PASSED"
       return runmode
   }
+  mfalogin =(description,objname,runmode)=>{
+    // cy.log(Object.values(objname))
+    description=description+"   Fieldname - "+objname+" "
+    this.set_variable(description,"FAILED")
+ 
+    cy.LoginAzure()
+     this.set_variable(description,"PASSED")
+     runmode="PASSED"
+     return runmode
+ }
+
 //click action with get and contains
   click=(description,objname,runmode)=>{
    // cy.log(Object.values(objname))

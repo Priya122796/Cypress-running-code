@@ -84,7 +84,6 @@ module.exports = defineConfig({
   e2e: {
     "experimentalModifyObstructiveThirdPartyCode":true,
    trashAssetsBeforeRuns : true,
-    baseUrl : 'https://naveenautomationlabs.com/opencart/',
     //Wont run automatically on every save when watch for file changes is false 
     watchForFileChanges : true,
     //experimentalSessionSupport : true,
