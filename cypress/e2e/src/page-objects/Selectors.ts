@@ -31,8 +31,10 @@
     username='OpsAdvaQAAutomation@paradigmcorp.com',
     password='CoffeeTrainEarthWater',
     login = '#logintag',
-    mainmenu='#menu-active',
-    backbutton='#idBtn_Back'
+    client_menu='#menu-active',
+    backbutton='#idBtn_Back',
+    create_contains='Create',
+    client_text='#addnewclient > app-dynamic-form > div > app-form-heading > div > h1'
   };  
 
 

@@ -127,9 +127,9 @@ it('Read from excel, Starting execution on Testcases',  {
         cy.log('inside scroll  '+ob1)
         status = actionobj.scroll(description,ob1,runmode)
         break;
-     case 'mfalogin' :
+     case 'assert' :
       cy.log("inside Microsoft login"+ob1)
-      status = actionobj.mfalogin(description,ob1,keyword)
+      status = actionobj.assert(description,data,ob1,runmode)
      // cy.LoginAzure();
       break;
     

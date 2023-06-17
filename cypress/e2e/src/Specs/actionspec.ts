@@ -40,14 +40,27 @@ export class action {
       runmode="PASSED"
       return runmode
   }
-  mfalogin =(description,objname,runmode)=>{
+  assert =(description,data,objname,runmode)=>{
     // cy.log(Object.values(objname))
     description=description+"   Fieldname - "+objname+" "
+    cy.log("****************assert method : "+description,data,objname)
+    runmode="FAILED"
     this.set_variable(description,"FAILED")
- 
-    cy.LoginAzure()
-     this.set_variable(description,"PASSED")
-     runmode="PASSED"
+    var regex : string = objname
+    if(regex===("url")){
+      cy.log("Expected result : "+data)
+      cy.url({timeout:5000}).should('eq',data)
+      this.set_variable(description,"PASSED")
+      runmode="PASSED"
+      cy.screenshot(description)
+    }else {
+      cy.log("Inside assert "+description+"\n expected data is :"+data)
+      cy.get(getselector(objname)).should('contain.text',data);
+      cy.screenshot(description)
+      runmode="PASSED"
+      this.set_variable(description,"PASSED")
+    }
+    
      return runmode
  }
 
@@ -82,16 +95,16 @@ type=(description,objname,data,runmode)=>{
       // if(objname.includes("last"))
       // cy.task('setUserData', description)
       //handling error and complete run without failing the execution 
-      Cypress.on('fail', (error, runnable) => {
-       // this.failed_cases(description)
-         if (!error.message.includes(' but never found it')) {
-     // cy.task('setValue', { key: 'description', value: description })
-        cy.log(error.message)
-       // Cypress.env('description', description)
-       return false
+    //   Cypress.on('fail', (error, runnable) => {
+    //    // this.failed_cases(description)
+    //      if (!error.message.includes(' but never found it')) {
+    //  // cy.task('setValue', { key: 'description', value: description })
+    //     cy.log(error.message)
+    //    // Cypress.env('description', description)
+    //    return false
         
-      }
-      })
+    //   }
+    //   })
       cy.log("Inside get"+description+"\n"+objname) 
       //reading data from fixture .json file 
       cy.fixture('fakerdata').then((json) => {

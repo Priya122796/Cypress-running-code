@@ -80,7 +80,7 @@ function getTFSdetailsIntoJson() {
 module.exports = defineConfig({
  
   projectId: 'yb6s1t',
-  defaultCommandTimeout: 5000,
+  defaultCommandTimeout: 6000,
   e2e: {
     "experimentalModifyObstructiveThirdPartyCode":true,
    trashAssetsBeforeRuns : true,

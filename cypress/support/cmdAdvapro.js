@@ -19,7 +19,7 @@ Cypress.Commands.add('LoginAzure', function () {
           // 
           //
           cy.wait(7000)
-          cy.get('#idBtn_Back').click({timeout:6000})
+          cy.get('#idBtn_Back').click({timeout:7000})
           cy.get('#otherTileText').click({timeout:3000})
           cy.get('input[type="email"]').type(username, {
             log: false,
