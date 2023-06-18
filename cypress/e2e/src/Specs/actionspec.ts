@@ -3,6 +3,7 @@
 
 ///<reference types="cypress"/>
 import { Selector } from "../page-objects/Selectors";
+import { highlight } from 'cypress-highlight'
 
 //enum to array of Selectors  conversion
 let userdata : any ;
@@ -52,15 +53,15 @@ export class action {
       cy.url({timeout:5000}).should('eq',data)
       this.set_variable(description,"PASSED")
       runmode="PASSED"
-      cy.screenshot(description)
+      cy.screenshot(regex)
     }else {
       cy.log("Inside assert "+description+"\n expected data is :"+data)
-      cy.get(getselector(objname)).should('contain.text',data);
-      cy.screenshot(description)
+      cy.get(getselector(regex)).should('contain.text',data);
+      highlight(getselector(objname))
+      cy.screenshot(regex)
       runmode="PASSED"
       this.set_variable(description,"PASSED")
     }
-    
      return runmode
  }
 
@@ -74,12 +75,14 @@ export class action {
     if(regex.includes("contains")){
     cy.log("Inside contains"+description+"\n"+objname)
     cy.contains(getselector(objname)).click();
+    highlight(getselector(objname))
     cy.screenshot(description)
     runmode="PASSED"
     return runmode
     }else{
     cy.log("Inside get"+description+"\n"+objname)
     cy.get(getselector(objname)).click()
+    highlight(getselector(objname))
     cy.screenshot(description)
     this.set_variable(description,"PASSED")
     runmode="PASSED"
@@ -115,7 +118,7 @@ type=(description,objname,data,runmode)=>{
           //.map(item=>item[1] ) - value returns in map 
         cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
       cy.get(getselector(objname)).type(userdata)
-      
+      highlight(getselector(objname))
          
       cy.screenshot(description)
       })
@@ -141,7 +144,7 @@ date=(description,objname,data,keyword,runmode)=>{
         userdata=v1[objname]
       cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
     cy.get(getselector(objname)).type('{selectall}'+userdata+'{enter}')
-   
+    highlight(getselector(objname))
     })
     cy.screenshot(description)
     this.set_variable(description,"PASSED")
@@ -157,6 +160,7 @@ uploadfile=(description,objname,data,keyword,runmode)=>{
   if(regex.includes("upload")){
     cy.log("Inside uploadfile check "+ description+"\n"+objname+ "\n"+data+"\n"+keyword) 
     cy.get(getselector(objname)).attachFile(data)
+    highlight(getselector(objname))
     cy.screenshot(description)
     runmode="PASSED"
     this.set_variable(description,"PASSED")
@@ -175,11 +179,11 @@ dropdown=(description,objname,data,keyword,runmode)=>{
     arr.forEach(element => {
       //handling dynamic dropdown [without select tag]with tab key 
        cy.get(getselector(objname)).type(element+'{downArrow}{enter}')
-    //  cy.get(keyword).should('be.visible').click();
+       highlight(getselector(objname))
     cy.screenshot(description)
     });
     //removing added last dropdown selection  without select tag
-    cy.get(getselector(keyword)).should('be.visible').click({force:true});
+  //  cy.get(getselector(keyword)).should('be.visible').click({force:true});
     cy.screenshot(description)
 
     this.set_variable(description,"PASSED")
@@ -188,6 +192,7 @@ dropdown=(description,objname,data,keyword,runmode)=>{
   }else if (regex.includes("state")){
     cy.log("Inside select dropdown check "+ description+"\n"+objname);
     cy.get(getselector(objname)).type(data+'{downArrow}{enter}')
+    highlight(getselector(objname))
     cy.screenshot(description+"   "+objname)
  
     this.set_variable(description,"PASSED")
@@ -196,6 +201,7 @@ dropdown=(description,objname,data,keyword,runmode)=>{
   }else{
     cy.log("Inside select dropdown check "+ description+"\n"+objname);
     cy.get(getselector(objname)).type(data+'{downArrow}{enter}'+'{enter}')
+    highlight(getselector(objname))
     cy.screenshot(description+"   "+objname)
     this.set_variable(description,"PASSED")
     return runmode

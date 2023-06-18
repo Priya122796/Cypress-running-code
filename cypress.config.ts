@@ -86,6 +86,7 @@ module.exports = defineConfig({
    trashAssetsBeforeRuns : true,
     //Wont run automatically on every save when watch for file changes is false 
     watchForFileChanges : true,
+    "defaultCommandTimeout": 7000,
     //experimentalSessionSupport : true,
     // testIsolation: false,
     experimentalRunAllSpecs : true,

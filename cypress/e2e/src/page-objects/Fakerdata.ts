@@ -6,6 +6,7 @@ const generateData = () => {
     id: faker.random.numeric(),
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
+    client_name:faker.name.fullName(),
     email: faker.internet.email(),
     mobile_number: faker.phone.number('501#######'),
    // subject : faker.lorem.sentence(),
@@ -13,7 +14,12 @@ const generateData = () => {
      //between(from: '1950/01/01', to: '2001/12/31').strftime("%d/%m/%Y")
    // It will return "29/05/1969"
     address : (faker.address.secondaryAddress()),
-    state : faker.address.state()
+    street : faker.address.street(),
+    state : faker.address.countryCode('alpha-2'),
+    city : faker.address.cityName(),
+    zip : faker.address.zipCode('#####'),
+    ext : faker.phone.number('##'),
+    website : faker.internet.url()
   };
   
 };

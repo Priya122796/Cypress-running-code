@@ -15,10 +15,9 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
  
   
 beforeEach('Generating faker data everytime ',()=>{
-//Handling failed test
-//cy.wrap(failedTest).should('be.undefined')
+
+
     // 1.getting faker data generated dynamically using faker,json
-    //cy.task('setUserData', "description")
     cy.log("Executing Before each 1. Generating faker data json dynamically " )
     let dataObj = generateEmployees(10);
    cy.writeFile("./cypress/fixtures/fakerdata.json",JSON.stringify(dataObj, null, '\t'));
@@ -78,20 +77,11 @@ it('Read from excel, Starting execution on Testcases',  {
      description = json[j].description;
     var keyword =json[j].keyword;
     var key_array=keyword.split(",")
-    key_array.forEach(element => {
-      cy.log("The keyword is L",element)
-    });
-    var data:string = json[j].data;
+    var data = json[j].data;
     var data_array=data.split(",")
-    data_array.forEach(element => {
-      cy.log("The data is ",element)
-    });
      ob1=json[j].objectName;
     var obj_array=ob1.split(",")
-   obj_array.forEach(element => {
-    cy.log("The object array is : "+element)
-   });
-    let runmode =json[j].runmode; 
+   let runmode =json[j].runmode; 
     if(runmode== "yes"){
       for (let index = 0; index < key_array.length; index++) {  
         keyword=key_array[index]
