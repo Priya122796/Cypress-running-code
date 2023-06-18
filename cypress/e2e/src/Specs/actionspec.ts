@@ -136,7 +136,7 @@ type=(description,objname,data,runmode)=>{
   
    
 }
-// radio button check method
+// date button check method
 date=(description,objname,data,keyword,runmode)=>{
   description=description+"   Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
