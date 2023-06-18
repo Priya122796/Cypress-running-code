@@ -26,6 +26,7 @@
     // client_id='15dfb74b-9965-4d96-a2f3-c226aebd69d2',
     // client_secret='uqB8Q~7u42mlkdcsC38VI.uKvjIQQWSM0q8Lgdg9',
     // key='secretcheck',
+    //input[name='loginfmt']-- checking for new login
     //ADvapro credentials
     url="https://adva-pro-dev01.paradigmcentral.com/#/",
     username='OpsAdvaQAAutomation@paradigmcorp.com',
@@ -43,7 +44,11 @@
     mobile_number='#mat-mdc-form-field-label-46 > .ng-tns-c38-103',
     ext='#mat-mdc-form-field-label-48 > .ng-tns-c38-104',
     website='#mat-mdc-form-field-label-50 > .ng-tns-c38-105',
-    save='#save-btn\ btn'
+    save="button[id='save-btn btn']",
+    next='#create-btn\\ btn',
+    next_tab='.mdc-tab--active',
+    finish='#save-btn\\ btn',
+    summary_contains=' Summary '
     };  
 
 

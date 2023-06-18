@@ -54,8 +54,15 @@ export class action {
       this.set_variable(description,"PASSED")
       runmode="PASSED"
       cy.screenshot(regex)
-    }else {
-      cy.log("Inside assert "+description+"\n expected data is :"+data)
+    }else if(regex.includes('contains')) {
+      cy.log("Inside contains assert "+description+"\n expected data is :"+data)
+      cy.contains(getselector(regex)).should('contain.text',data);
+      highlight(getselector(objname))
+      cy.screenshot(regex)
+      runmode="PASSED"
+      this.set_variable(description,"PASSED")
+    }else{
+      cy.log("Inside get assert "+description+"\n expected data is :"+data)
       cy.get(getselector(regex)).should('contain.text',data);
       highlight(getselector(objname))
       cy.screenshot(regex)
@@ -191,7 +198,7 @@ dropdown=(description,objname,data,keyword,runmode)=>{
     return runmode
   }else if (regex.includes("state")){
     cy.log("Inside select dropdown check "+ description+"\n"+objname);
-    cy.get(getselector(objname)).type(data+'{downArrow}{enter}')
+    cy.get(getselector(objname)).type(data+'{enter}')
     highlight(getselector(objname))
     cy.screenshot(description+"   "+objname)
  

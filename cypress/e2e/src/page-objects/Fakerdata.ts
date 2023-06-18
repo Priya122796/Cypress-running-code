@@ -16,7 +16,7 @@ const generateData = () => {
     address : (faker.address.secondaryAddress()),
     street : faker.address.street(),
     state : faker.address.countryCode('alpha-2'),
-    city : faker.address.cityName(),
+    city : faker.address.city(),
     zip : faker.address.zipCode('#####'),
     ext : faker.phone.number('##'),
     website : faker.internet.url()

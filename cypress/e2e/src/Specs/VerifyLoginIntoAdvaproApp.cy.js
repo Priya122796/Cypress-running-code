@@ -15,7 +15,11 @@ const getselector=function(objname) {
   }    
 }
 }
-    it('Login into AdvaPro dev01 app',()=>{  
+    it('Login into AdvaPro dev01 app',  {
+      retries: {
+        runMode: 1,
+        openMode: 1,
+      },}, function(){  
        //Clearing previous session,local and cache storage 
         cy.clearAllLocalStorage()
         cy.clearAllCookies()
@@ -30,6 +34,8 @@ const getselector=function(objname) {
         cy.contains(getselector('create_contains')).click({timeout:2000})
         cy.get(getselector('client_text')).should('contain.text','Create New Client').screenshot('Assertion')
         cy.get(getselector('client_name')).type('Andrew')
+        cy.get(getselector('save')).click()
+        cy.get(getselector('next')).click()
     })
     
 })
