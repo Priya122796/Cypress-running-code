@@ -76,17 +76,17 @@ function getTFSdetailsIntoJson() {
 }
 
 
-
+import allureWriter from "@shelex/cypress-allure-plugin/writer"
 module.exports = defineConfig({
  
   projectId: 'yb6s1t',
   defaultCommandTimeout: 5000,
   e2e: {
-  
    trashAssetsBeforeRuns : true,
     baseUrl : 'https://naveenautomationlabs.com/opencart/',
     //Wont run automatically on every save when watch for file changes is false 
     watchForFileChanges : true,
+    "allureResultsPath": "allure/results",
     //experimentalSessionSupport : true,
     // testIsolation: false,
     experimentalRunAllSpecs : true,
@@ -107,12 +107,16 @@ module.exports = defineConfig({
           return global.userData;
         },
       });
+      allureWriter(on, config);
       // on("file:preprocessor", require("@cypress/code-coverage/use-babelrc"));
        return config;
     },
- 
-  
+    env: {
+      allure: true,
+      allureReuseAfterSpec: true
+  }
   },
+  
 });
 
 

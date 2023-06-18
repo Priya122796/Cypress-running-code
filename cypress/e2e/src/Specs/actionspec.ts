@@ -3,6 +3,7 @@
 
 ///<reference types="cypress"/>
 import { Selector } from "../page-objects/Selectors";
+import { highlight } from 'cypress-highlight'
 
 //enum to array of Selectors  conversion
 let userdata : any ;
@@ -46,13 +47,15 @@ export class action {
     if(regex.includes("contains")){
     cy.log("Inside contains"+description+"\n"+objname)
     cy.contains(getselector(objname)).click();
+    highlight(getselector(objname))
     cy.screenshot(description)
     runmode="PASSED"
     return runmode
     }else{
     cy.log("Inside get"+description+"\n"+objname)
     cy.get(getselector(objname)).click()
-    cy.screenshot(description)
+    highlight(getselector(objname))
+    cy.screenshot('highlighted'+description)
     this.set_variable(description,"PASSED")
     runmode="PASSED"
     return runmode
@@ -67,16 +70,16 @@ type=(description,objname,data,runmode)=>{
       // if(objname.includes("last"))
       // cy.task('setUserData', description)
       //handling error and complete run without failing the execution 
-      Cypress.on('fail', (error, runnable) => {
-       // this.failed_cases(description)
-         if (!error.message.includes(' but never found it')) {
-     // cy.task('setValue', { key: 'description', value: description })
-        cy.log(error.message)
-       // Cypress.env('description', description)
-       return false
+    //   Cypress.on('fail', (error, runnable) => {
+    //    // this.failed_cases(description)
+    //      if (!error.message.includes(' but never found it')) {
+    //  // cy.task('setValue', { key: 'description', value: description })
+    //     cy.log(error.message)
+    //    // Cypress.env('description', description)
+    //    return false
         
-      }
-      })
+    //   }
+    //   })
       cy.log("Inside get"+description+"\n"+objname) 
       //reading data from fixture .json file 
       cy.fixture('fakerdata').then((json) => {
@@ -87,7 +90,7 @@ type=(description,objname,data,runmode)=>{
           //.map(item=>item[1] ) - value returns in map 
         cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
       cy.get(getselector(objname)).type(userdata)
-      
+      highlight(getselector(objname))
          
       cy.screenshot(description)
       })
@@ -113,7 +116,7 @@ date=(description,objname,data,keyword,runmode)=>{
         userdata=v1[objname]
       cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
     cy.get(getselector(objname)).type('{selectall}'+userdata+'{enter}')
-   
+    highlight(getselector(objname))
     })
     cy.screenshot(description)
     this.set_variable(description,"PASSED")
@@ -129,6 +132,7 @@ uploadfile=(description,objname,data,keyword,runmode)=>{
   if(regex.includes("upload")){
     cy.log("Inside uploadfile check "+ description+"\n"+objname+ "\n"+data+"\n"+keyword) 
     cy.get(getselector(objname)).attachFile(data)
+    highlight(getselector(objname))
     cy.screenshot(description)
     runmode="PASSED"
     this.set_variable(description,"PASSED")
@@ -152,6 +156,7 @@ dropdown=(description,objname,data,keyword,runmode)=>{
     });
     //removing added last dropdown selection  without select tag
     cy.get(getselector(keyword)).should('be.visible').click({force:true});
+    highlight(getselector(objname))
     cy.screenshot(description)
 
     this.set_variable(description,"PASSED")

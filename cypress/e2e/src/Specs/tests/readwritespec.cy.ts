@@ -6,15 +6,15 @@ import {get_testplan_details,UpdateStatusintoTFS} from "../TFSAPiintegration.cy"
 
 
 const actionobj= new action();
-describe("My first Test Suite ",{testIsolation:false} ,() => {
- let index=0;
- let status ="FAILED"
- var description;
- var ob1;
- var filename;
- 
-  
-beforeEach('Generating faker data everytime ',()=>{
+let index=0;
+let status ="FAILED"
+var description;
+var ob1;
+var filename;
+var id;
+describe("Preparation for Execution ",{testIsolation:false} ,() => {
+
+before('Generating faker data everytime ',()=>{
 //Handling failed test
 //cy.wrap(failedTest).should('be.undefined')
     // 1.getting faker data generated dynamically using faker,json
@@ -65,7 +65,10 @@ cy.task('readTfsDetails').then((fileContents) => {
 });
 
     })
-it('Read from excel, Starting execution on Testcases',  {
+  })
+
+  describe("Main Execution ",{testIsolation:false} ,() => {
+    it('Read from excel, Starting execution on Testcases',  {
       retries: {
         runMode: 1,
         openMode: 0,
@@ -75,23 +78,17 @@ it('Read from excel, Starting execution on Testcases',  {
     for(let j in json){
       status="FAILED"
       cy.log(json[j].keyword+json[j].runmode)
+      id=json[j].tcid;
      description = json[j].description;
     var keyword =json[j].keyword;
     var key_array=keyword.split(",")
-    key_array.forEach(element => {
-      cy.log("The keyword is L",element)
-    });
     var data:string = json[j].data;
     var data_array=data.split(",")
-    data_array.forEach(element => {
-      cy.log("The data is ",element)
-    });
-     ob1=json[j].objectName;
+    ob1=json[j].objectName;
     var obj_array=ob1.split(",")
-   obj_array.forEach(element => {
-    cy.log("The object array is : "+element)
-   });
     let runmode =json[j].runmode; 
+    context(id+' '+description,()=>{
+    cy.log("inside nested ")
     if(runmode== "yes"){
       for (let index = 0; index < key_array.length; index++) {  
         keyword=key_array[index]
@@ -136,11 +133,12 @@ it('Read from excel, Starting execution on Testcases',  {
   
     //logic to store the status of the testcase into TFS Testplan
        UpdateStatusintoTFS(description,status,ob1,"") 
-  }
+ })
+    }
     })
     
  
-  })
+ })
 
   after('Clearing local storage ',function(){
 

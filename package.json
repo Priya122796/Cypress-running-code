@@ -5,7 +5,7 @@
   "main": "../readwritespec.cy.ts",
   "scripts": {
     "build": "npm run instrument && npm run cp",
-    "start": "npx cypress open --e2e",
+    "start": "npx cypress run --env allure=true --spec cypress/e2e/src/Specs/tests/readwritespec.cy.ts & npx allure generate",
     "cy:run": "cypress run"
   },
   "keywords": [],
@@ -13,7 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@shelex/cypress-allure-plugin": "^2.40.0",
     "@testing-library/cypress": "^9.0.0",
+    "allure-commandline": "^2.22.4",
     "cypress-plugin-tab": "^1.0.5",
     "jest": "^29.5.0",
     "node-xlsx": "^0.21.0",
@@ -25,6 +27,7 @@
     "cypress": "^12.12.0",
     "cypress-cloud": "^1.7.3",
     "cypress-file-upload": "^5.0.8",
+    "cypress-highlight": "^1.2.0",
     "cypress-selectors": "^1.0.2",
     "mocha": "^10.2.0",
     "mochawesome": "^7.1.3",
