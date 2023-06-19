@@ -32,18 +32,18 @@
     username='OpsAdvaQAAutomation@paradigmcorp.com',
     password='CoffeeTrainEarthWater',
     login = '#logintag',
-    client_menu='#menu-active',
+    client_menu='#Clients',
     backbutton='#idBtn_Back',
     create_contains='Create',
     client_text='#addnewclient > app-dynamic-form > div > app-form-heading > div > h1.ng-star-inserted',
-    client_name='#mat-input-22',
-    street='#mat-input-23',
+    client_name='#clientname',
+    street='#streetaddress',
     city="mat-label.ng-tns-c38-99",
     state='.ms-2',
-    zip='mat-label.ng-tns-c38-102',
-    mobile_number='#mat-mdc-form-field-label-46 > .ng-tns-c38-103',
-    ext='#mat-mdc-form-field-label-48 > .ng-tns-c38-104',
-    website='#mat-mdc-form-field-label-50 > .ng-tns-c38-105',
+    zip='#zip',
+    mobile_number='#phone',
+    ext='#ext',
+    website='#websiteurl',
     save="button[id='save-btn btn']",
     next='#create-btn\\ btn',
     next_tab='.mdc-tab--active',
@@ -55,8 +55,8 @@
     document="[href='#/client/details/documents']",
     norecord_contains=' No records found ',
     training_contains=' Create New Training',
-    first_name='.top-0 > app-field-input > app-textbox.ng-star-inserted > .forms > .formgroup > .mat-mdc-form-field > .mat-mdc-text-field-wrapper',
-    date='.top-0 > app-field-input > app-textbox.ng-star-inserted > .forms > .formgroup > .mat-mdc-form-field > .mat-mdc-text-field-wrapper'
+    first_name='mat-label.ng-tns-c38-141',
+    date='#dateoftraining'
     };  
 
 

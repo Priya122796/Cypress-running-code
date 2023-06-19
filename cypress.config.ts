@@ -89,6 +89,7 @@ module.exports = defineConfig({
     "defaultCommandTimeout": 7000,
     //experimentalSessionSupport : true,
     // testIsolation: false,
+    "allureResultsPath": "allure/results",
     experimentalRunAllSpecs : true,
     setupNodeEvents(on, config) {
   //   require("@cypress/code-coverage/task")(on, config);

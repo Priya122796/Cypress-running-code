@@ -126,9 +126,9 @@ type=(description,objname,data,runmode)=>{
         cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
         if(data.includes('contains')){
           cy.contains(getselector(objname)).type(userdata)
-        }else{
+        } else{
           cy.get(getselector(objname)).type(userdata)
-        } 
+        }
         highlight(getselector(objname))
          
       cy.screenshot(objname)
@@ -145,7 +145,7 @@ date=(description,objname,data,keyword,runmode)=>{
   description=description+"   Fieldname - "+objname+" "
   this.set_variable(description,"FAILED")
   var regex : string = objname
-  if(regex.includes("dob")){
+  if(regex.includes("date")){
     cy.log("Inside date check "+ description+"\n"+objname+ "\n"+data+"\n"+keyword) 
     cy.get(getselector(objname)).click();
     cy.fixture('fakerdata').then((json) => {
@@ -153,8 +153,10 @@ date=(description,objname,data,keyword,runmode)=>{
       let n1 : number = Math.floor(Math.random() * 10) 
       var v1 = json[n1]
         userdata=v1[objname]
-      cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
-    cy.get(getselector(objname)).type('{selectall}'+userdata+'{en}')
+        cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
+      var v2=userdata.substring(0,10)
+      cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The trimmed  userdata is : "+ v2)
+    cy.get(getselector(objname)).type(v2)
     highlight(getselector(objname))
     })
     cy.screenshot(objname)

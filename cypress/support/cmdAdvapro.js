@@ -20,7 +20,7 @@ Cypress.Commands.add('LoginAzure', function () {
             //
             cy.wait(7000)
             //condition to check wheather microsoft loads login with presaved  credentials or new screen
-           if(cy.contains('Approve sign in request')){
+           if(cy.contains('Approve sign in request',{timeout:3000})){
              cy.get('#idBtn_Back').click({timeout:7000})
             cy.get('#otherTileText').click({timeout:3000})
             cy.get('input[type="email"]').type(username, {
