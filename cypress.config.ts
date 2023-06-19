@@ -76,7 +76,7 @@ function getTFSdetailsIntoJson() {
 }
 
 
-
+import allureWriter from "@shelex/cypress-allure-plugin/writer"
 module.exports = defineConfig({
  
   projectId: 'yb6s1t',
@@ -107,8 +107,13 @@ module.exports = defineConfig({
           return global.userData;
         },
       });
+      allureWriter(on, config);
       // on("file:preprocessor", require("@cypress/code-coverage/use-babelrc"));
        return config;
+    },
+    env: {
+      allure: true,
+      allureReuseAfterSpec: true
     },
  
   

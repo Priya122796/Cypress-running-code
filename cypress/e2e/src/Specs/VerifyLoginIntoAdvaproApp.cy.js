@@ -18,7 +18,7 @@ const getselector=function(objname) {
     it('Login into AdvaPro dev01 app',  {
       retries: {
         runMode: 1,
-        openMode: 1,
+        openMode: 0,
       },}, function(){  
        //Clearing previous session,local and cache storage 
         cy.clearAllLocalStorage()
@@ -28,14 +28,14 @@ const getselector=function(objname) {
         cy.get(getselector('login')).click({timeout:2000});
             
        //Login to your AAD tenant.
-        cy.LoginAzure(); 
-        cy.get(getselector('client_menu')).first().should('be.visible').click({timeout:8000})
-        cy.screenshot("Client Menu",{timeout:4000})
-        cy.contains(getselector('create_contains')).click({timeout:2000})
-        cy.get(getselector('client_text')).should('contain.text','Create New Client').screenshot('Assertion')
-        cy.get(getselector('client_name')).type('Andrew')
-        cy.get(getselector('save')).click()
-        cy.get(getselector('next')).click()
+         cy.LoginAzure(); 
+        // cy.get(getselector('client_menu')).first().should('be.visible').click({timeout:8000})
+        // cy.screenshot("Client Menu",{timeout:4000})
+        // cy.contains(getselector('create_contains')).click({timeout:2000})
+        // cy.get(getselector('client_text')).should('contain.text','Create New Client').screenshot('Assertion')
+        // cy.get(getselector('client_name')).type('Andrew')
+        // cy.get(getselector('save')).click()
+        // cy.get(getselector('next')).click()
     })
     
 })

@@ -10,7 +10,7 @@ const generateData = () => {
     email: faker.internet.email(),
     mobile_number: faker.phone.number('501#######'),
    // subject : faker.lorem.sentence(),
-    dob: faker.date.between('1950/01/01', '2023/12/31'),
+    dob: faker.date.between('1999/01/01', '2023/06/19'),
      //between(from: '1950/01/01', to: '2001/12/31').strftime("%d/%m/%Y")
    // It will return "29/05/1969"
     address : (faker.address.secondaryAddress()),

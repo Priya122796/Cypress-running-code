@@ -19,3 +19,4 @@
 // require('./commands')
 import './commands'
 import './cmdAdvapro' 
+import '@shelex/cypress-allure-plugin';

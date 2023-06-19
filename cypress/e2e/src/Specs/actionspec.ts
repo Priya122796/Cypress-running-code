@@ -36,7 +36,7 @@ export class action {
       cy.clearAllSessionStorage()
       cy.visit(data)
       cy.LoginAzure()
-      cy.screenshot(description)
+      cy.screenshot(keyword)
       this.set_variable(description,"PASSED")
       runmode="PASSED"
       return runmode
@@ -83,14 +83,14 @@ export class action {
     cy.log("Inside contains"+description+"\n"+objname)
     cy.contains(getselector(objname)).click();
     highlight(getselector(objname))
-    cy.screenshot(description)
+    cy.screenshot(objname)
     runmode="PASSED"
     return runmode
     }else{
     cy.log("Inside get"+description+"\n"+objname)
     cy.get(getselector(objname)).click()
     highlight(getselector(objname))
-    cy.screenshot(description)
+    cy.screenshot(objname)
     this.set_variable(description,"PASSED")
     runmode="PASSED"
     return runmode
@@ -124,10 +124,14 @@ type=(description,objname,data,runmode)=>{
           userdata=v1[objname]
           //.map(item=>item[1] ) - value returns in map 
         cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
-      cy.get(getselector(objname)).type(userdata)
-      highlight(getselector(objname))
+        if(data.includes('contains')){
+          cy.contains(getselector(objname)).type(userdata)
+        }else{
+          cy.get(getselector(objname)).type(userdata)
+        } 
+        highlight(getselector(objname))
          
-      cy.screenshot(description)
+      cy.screenshot(objname)
       })
       this.set_variable(description,"PASSED")
       runmode="PASSED"
@@ -150,10 +154,10 @@ date=(description,objname,data,keyword,runmode)=>{
       var v1 = json[n1]
         userdata=v1[objname]
       cy.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%^The faker userdata is : "+ userdata)
-    cy.get(getselector(objname)).type('{selectall}'+userdata+'{enter}')
+    cy.get(getselector(objname)).type('{selectall}'+userdata+'{en}')
     highlight(getselector(objname))
     })
-    cy.screenshot(description)
+    cy.screenshot(objname)
     this.set_variable(description,"PASSED")
     runmode="PASSED"
     return runmode
@@ -168,7 +172,7 @@ uploadfile=(description,objname,data,keyword,runmode)=>{
     cy.log("Inside uploadfile check "+ description+"\n"+objname+ "\n"+data+"\n"+keyword) 
     cy.get(getselector(objname)).attachFile(data)
     highlight(getselector(objname))
-    cy.screenshot(description)
+    cy.screenshot(objname)
     runmode="PASSED"
     this.set_variable(description,"PASSED")
     return runmode
@@ -187,11 +191,11 @@ dropdown=(description,objname,data,keyword,runmode)=>{
       //handling dynamic dropdown [without select tag]with tab key 
        cy.get(getselector(objname)).type(element+'{downArrow}{enter}')
        highlight(getselector(objname))
-    cy.screenshot(description)
+    cy.screenshot(objname)
     });
     //removing added last dropdown selection  without select tag
   //  cy.get(getselector(keyword)).should('be.visible').click({force:true});
-    cy.screenshot(description)
+    cy.screenshot(objname)
 
     this.set_variable(description,"PASSED")
     runmode="PASSED"
@@ -222,7 +226,7 @@ scroll=(description,objname,runmode)=>{
   var regex : string = objname
   cy.log("Inside contains"+description+"\n"+objname)
   cy.contains(getselector(objname)).scrollIntoView()
-  cy.screenshot(description)
+  cy.screenshot(objname)
   this.set_variable(description,"PASSED")
   runmode="PASSED"
   return runmode

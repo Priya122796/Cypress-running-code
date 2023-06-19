@@ -1,8 +1,5 @@
 coverage-ts
 node_modules
 screenshots
-cypress/fixtures/tfstestsuite.json
-cypress/fixtures/tfsdetails.json
-cypress/fixtures/testData.json
-cypress/fixtures/sampleFile.xlsx
-cypress/fixtures/fakerdata.json
+videos
+allure-results

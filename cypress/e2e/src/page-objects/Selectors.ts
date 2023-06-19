@@ -48,7 +48,15 @@
     next='#create-btn\\ btn',
     next_tab='.mdc-tab--active',
     finish='#save-btn\\ btn',
-    summary_contains=' Summary '
+    summary_contains=' Summary ',
+    breadcrumb1='.breadcrumb > ul > :nth-child(3) > a',
+    training="[href='#/client/details/training']",
+    instruction="[href='#/client/details/training']",
+    document="[href='#/client/details/documents']",
+    norecord_contains=' No records found ',
+    training_contains=' Create New Training',
+    first_name='.top-0 > app-field-input > app-textbox.ng-star-inserted > .forms > .formgroup > .mat-mdc-form-field > .mat-mdc-text-field-wrapper',
+    date='.top-0 > app-field-input > app-textbox.ng-star-inserted > .forms > .formgroup > .mat-mdc-form-field > .mat-mdc-text-field-wrapper'
     };  
 
 
