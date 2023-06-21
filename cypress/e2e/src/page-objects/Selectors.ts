@@ -56,7 +56,9 @@
     norecord_contains=' No records found ',
     training_contains=' Create New Training',
     first_name='mat-label.ng-tns-c38-141',
-    date='#dateoftraining'
+    date='#dateoftraining',
+    training_assert='.table-title > label',
+    click_training='.mat-link > .mat-header-value'
     };  
 
 

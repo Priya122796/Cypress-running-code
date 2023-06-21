@@ -2,9 +2,11 @@
 //import RegExp from "typescript-dotnet-commonjs/System/Text/RegularExpressions";
 
 ///<reference types="cypress"/>
+import { get } from "cypress/types/lodash";
 import { Selector } from "../page-objects/Selectors";
 import { highlight } from 'cypress-highlight'
-
+const { ClientSecretCredential} = require("@azure/identity");
+const { SecretClient } = require("@azure/keyvault-secrets");
 //enum to array of Selectors  conversion
 let userdata : any ;
  const getselector=function(objname):string {
@@ -61,7 +63,8 @@ export class action {
       cy.screenshot(regex)
       runmode="PASSED"
       this.set_variable(description,"PASSED")
-    }else{
+    }
+      else{
       cy.log("Inside get assert "+description+"\n expected data is :"+data)
       cy.get(getselector(regex)).should('contain.text',data);
       highlight(getselector(objname))
@@ -240,4 +243,22 @@ cy.log("Setting variable is : "+desc)
 cy.task('setUserData', desc) 
 }
 
+async secret_get()  {
+  cy.log('inside secret_get')
+  const tenantId=getselector('tenant_id'),clientId=getselector('client_id'),clientSecret=getselector('client_secret')
+const firstCredential = new ClientSecretCredential( tenantId, clientId, clientSecret);
+const keyVaultName = getselector('keyvault_name');
+cy.log(keyVaultName)
+try {
+  if (!keyVaultName) throw new Error("KEY_VAULT_NAME is empty");
+  const url = "https://" + keyVaultName + ".vault.azure.net";
+const client = new SecretClient(url, firstCredential);
+  const secret = await client.getSecret(getselector('key'));
+   cy.log(secret.name);
+   cy.log(secret.value)
+} catch (error) {
+  console.log("Azure Active Directory service response with error", error.errorResponse);
+}
+
+}
 }
