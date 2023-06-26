@@ -1,10 +1,154 @@
 [
     {
-        "tcid": "TC_01",
-        "description": "1.Launch the browser",
-        "keyword": "openbrowser,click,click,type,type,type,click,type,date,dropdown,click,uploadfile,type",
-        "data": "https://demoqa.com/,no value,no value,faker,faker,faker,no value,faker,faker,Com,no value,Sample image.png,faker",
-        "objectName": "no value,form_contains,practiceform_contains,first_name,last_name,email,gender,mobile_number,dob,subject,hobbies,upload,address",
+        "tcid": "140398",
+        "description": "Login->To Verify that Successfully landed user role-based landing page, when user Clicking on the Adva pro Login button",
+        "keyword": "openbrowser,assert",
+        "data": "https://adva-pro-dev01.paradigmcentral.com,https://adva-pro-dev01.paradigmcentral.com/#/providers/prospects/list",
+        "objectName": "no value,url",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "140671",
+        "description": "Client-> Create New Client screen : To verify that when the user clicks \"Create\" button , it navigates to the Create New Client screen",
+        "keyword": "click,click,assert",
+        "data": "no value,no value, Create New Client",
+        "objectName": "client_menu,create_contains,client_text",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "140741",
+        "description": "Client->Create Client->To verify that the user can view the \"Prepopulated\" data in the client information screen.",
+        "keyword": "type,type,type,dropdown,type,type,type,type,click",
+        "data": "faker,faker,faker,CA,faker,faker,faker,faker,no value",
+        "objectName": "client_name,street,city,state,zip,mobile_number,ext,website,save",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "140853",
+        "description": "Client-Create Client->To verify that if the user clicks multiple times on the breadcrumbs in Edit, it should navigate to the Tab1(Client Information page)",
+        "keyword": "click,assert",
+        "data": "no value, 1.Client Information ",
+        "objectName": "breadcrumb1,next_tab",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "140688",
+        "description": "Client->Create Client->General Information->To verify if the user is able to click on the \"Next\" button and navigate to the General information screen.",
+        "keyword": "click,assert",
+        "data": "no value, 2.General Information ",
+        "objectName": "next,next_tab",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "140728",
+        "description": "Client->Create Client->To verify that the user is able to navigate to the Client Summary screen after clicking the FINISH button.",
+        "keyword": "click,assert",
+        "data": "no value,Summary",
+        "objectName": "finish,summary_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141380",
+        "description": "Client->Client Summary->Instruction->To verify that if there is no data in the instruction section, the error message \"No record found\" is displayed.",
+        "keyword": "click,assert,click,assert",
+        "data": "no value, No records found ,no value, No records found ",
+        "objectName": "instruction,norecord_contains,document,norecord_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141433",
+        "description": "Client->Client Summary->Training->To verify that if there is no data in the Training section, the error message \"No Record Found\" along with an exclamation mark is displayed.",
+        "keyword": "click,assert",
+        "data": "no value, No records found ",
+        "objectName": "training,norecord_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141275",
+        "description": "Client-Client Summary-> Training->To verify that navigated to Create New Training screen, when user click \"+Create\" button.",
+        "keyword": "click,assert",
+        "data": "no value, Create New Training",
+        "objectName": "next,training_contains",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141263",
+        "description": "Client->Client Summary->To Verify if the user can add new entries in training data.",
+        "keyword": "date,type,click",
+        "data": "faker,faker,no value",
+        "objectName": "date,first_name,finish",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141287",
+        "description": "Client->Client Summary->Training->To verify that when the user clicks the Save button on the Client Record-Training Data screen, the data should be saved, and they should be navigated to the training main screen.",
+        "keyword": "assert,click,click",
+        "data": "Trainings,no value,no value",
+        "objectName": "training_assert,click_training,finish",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141289",
+        "description": "Client->Client Summary->Training->To verify that the user can view previously entered training data and add new entries on the Client Record-Training Data screen.",
+        "keyword": "click,date,type,click",
+        "data": "no value,faker,faker,no value",
+        "objectName": "next,date,first_name_next,cancel",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141370",
+        "description": "To verify that the user can upload instructions by clicking the upload button.",
+        "keyword": "click,click,click",
+        "data": "no value,no value,no value",
+        "objectName": "instruction,next,close_popup",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "144229",
+        "description": "To verify that the existing summary page displays a detailed view of all the tabs in the Summary Page.",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "training",
+        "runmode": "no"
+    },
+    {
+        "tcid": "141406",
+        "description": "Client-Client Summary-Activity log->To verify if the correct action of the user mentioned in the FRD (Record updated, Case manager assigned, Status changed, Referral created, comments added, documents uploaded) is displayed in the Activity log.",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "document",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141340",
+        "description": "To verify that each document should have at least one tag in the Upload document pop-up.",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "instruction",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141370",
+        "description": "Client-Client Summary->Instruction->To verify that the user can upload instructions by clicking the upload button.",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "training",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141380",
+        "description": "Client->Client Summary->Instruction->To verify that if there is no data in the instruction section, the error message \"No record found\" is displayed.",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "document",
+        "runmode": "yes"
+    },
+    {
+        "tcid": "141406",
+        "description": "Client-Client Summary-Activity log->To verify if the correct action of the user mentioned in the FRD (Record updated, Case manager assigned, Status changed, Referral created, comments added, documents uploaded) is displayed in the Activity log.",
+        "keyword": "click",
+        "data": "no value",
+        "objectName": "instruction",
         "runmode": "yes"
     }
 ]

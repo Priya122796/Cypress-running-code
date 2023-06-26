@@ -3,40 +3,38 @@
 // code coverage
 const path = require('path')
 const { defineConfig } = require("cypress");
-// const { cloudPlugin } = require("cypress-cloud/plugin");
+const { ClientSecretCredential} = require("@azure/identity");
+const { SecretClient } = require("@azure/keyvault-secrets");
 
-// module.exports = defineConfig({
-//   e2e: {
-//     // ...
-//     setupNodeEvents(on, config) {
-//       //= alternative: activate the plugin first
-//       cloudPlugin(on, config)
-//       const enhancedConfig = {
-//         projectId:'ImXQ98',
-//         env: {
-//           // preserve the original env
-//           ...config.env,
-//           customVariable: "value"
-//         }
-//       }
-//       return cloudPlugin(on, enhancedConfig);
-//     },
-//   },
-// });
-// module.exports = defineConfig({
-//   // setupNodeEvents can be defined in either
-//   // the e2e or component configuration
-//   e2e: {
-//     setupNodeEvents(on, config) {
-//       require('@cypress/code-coverage/task')(on, config)
-//       // include any other plugin code...
-
-//       // It's IMPORTANT to return the config object
-//       // with any changed environment variables
-//       return config
-//     },
-//   },
-// })
+const getmethod_secret = async() => {
+  //const tenantId=process.env.TENANT_ID, clientId=process.env.CLIENT_ID,clientSecret=process.env.CLIENT_SECRET
+  //augusta
+ // const tenantId='1da53bfb-aa20-4fa2-bb8b-65e1f2516714', clientId='15dfb74b-9965-4d96-a2f3-c226aebd69d2',clientSecret='uqB8Q~7u42mlkdcsC38VI.uKvjIQQWSM0q8Lgdg9'
+//parad  
+  const tenantId='21dd4b96-0304-436c-add3-23f63e5fc806',
+  clientId='065a923d-f87c-4474-ae7f-46c135ca44b7',
+  clientSecret='v898Q~TqIFnh25SYOQ2VwGBkDyJ1zZ039K8P3cE.'
+  const firstCredential = new ClientSecretCredential( tenantId, clientId, clientSecret);
+  const keyVaultName = 'psninside-dev-kv';
+  //const keyVaultName = 'Advaprokeyvault';
+  console.log(keyVaultName)
+ if (!keyVaultName) throw new Error("KEY_VAULT_NAME is empty");
+  const url = "https://" + keyVaultName + ".vault.azure.net";
+ // const url ="https://psninside-dev-kv.vault.azure.net/"
+  const client = new SecretClient(url, firstCredential);
+  try{
+    // GETTING SECRET 
+    const secret = await client.getSecret("OpsAdvaQAAutomation");
+  // const secret = await client.getSecret("username");
+    console.log("The secret value is :"+secret.value);
+    return secret.value
+  }catch(err){
+    console.log("Err:"+err)
+    return err
+  } finally{
+   console.log("got secret ")
+  }
+}
 // Path to Excel file
 // Read the Excel file
  // Select first workbook
@@ -79,16 +77,15 @@ function getTFSdetailsIntoJson() {
 import allureWriter from "@shelex/cypress-allure-plugin/writer"
 module.exports = defineConfig({
  
-  projectId: 'yb6s1t',
-  defaultCommandTimeout: 6000,
   e2e: {
-    "experimentalModifyObstructiveThirdPartyCode":true,
+    
    trashAssetsBeforeRuns : true,
     //Wont run automatically on every save when watch for file changes is false 
     watchForFileChanges : true,
     "defaultCommandTimeout": 7000,
     //experimentalSessionSupport : true,
     // testIsolation: false,
+    "experimentalModifyObstructiveThirdPartyCode":true,
     "allureResultsPath": "allure/results",
     experimentalRunAllSpecs : true,
     setupNodeEvents(on, config) {
@@ -107,6 +104,10 @@ module.exports = defineConfig({
         getUserData: () => {
           return global.userData;
         },
+        get_secret:()=>{
+         console.log("Get_secret task")
+          return  getmethod_secret()
+      }
       });
       allureWriter(on, config);
       // on("file:preprocessor", require("@cypress/code-coverage/use-babelrc"));

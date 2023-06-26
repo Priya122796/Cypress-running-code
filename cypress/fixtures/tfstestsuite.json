@@ -1,43 +1,79 @@
 [{
-  "test_id": "922",
-  "test_name": "1.Launch the browser"
+  "test_id": "140398",
+  "test_name": "Login->To Verify that Successfully landed user role-based landing page, when user Clicking on the Adva pro Login button"
 },{
-  "test_id": "923",
-  "test_name": "2.Selecting Form Menu"
+  "test_id": "140409",
+  "test_name": "Logout->To verify that when the user clicks the logout button, they are redirected to the login/home page."
 },{
-  "test_id": "924",
-  "test_name": "3.Selecting Practice forms Submenu"
+  "test_id": "140414",
+  "test_name": "Login->To verify that if the user clicks on the browser back button after a successful login, they should not be redirected to the user login screen."
 },{
-  "test_id": "925",
-  "test_name": "4.Entering FirstName"
+  "test_id": "140415",
+  "test_name": "Logout->To verify that if the user clicks on the browser \"Back\" button after a successful logout, they should not be redirected to a logged-in mode."
 },{
-  "test_id": "926",
-  "test_name": "5.Entering LastName"
+  "test_id": "140671",
+  "test_name": "Client-> Create New Client screen : To verify that when the user clicks \"Create\" button , it navigates to the Create New Client screen"
 },{
-  "test_id": "927",
-  "test_name": "6.Entering Email"
+  "test_id": "140688",
+  "test_name": "Client->Create Client->General Information->To verify if the user is able to click on the \"Next\" button and navigate to the General information screen."
 },{
-  "test_id": "928",
-  "test_name": "7.Radiobutton Check for gender"
+  "test_id": "140728",
+  "test_name": "Client->Create Client->To verify that the user is able to navigate to the Client Summary screen after clicking the FINISH button."
 },{
-  "test_id": "929",
-  "test_name": "8.Entering Mobile number"
+  "test_id": "140741",
+  "test_name": "Client->Create Client->To verify that the user can view the \"Prepopulated\" data in the client information screen."
 },{
-  "test_id": "930",
-  "test_name": "09.Selecting Date from datepicker"
+  "test_id": "140853",
+  "test_name": "Client-Create Client->To verify that if the user clicks multiple times on the breadcrumbs in Edit, it should navigate to the Tab1(Client Information page)"
 },{
-  "test_id": "931",
-  "test_name": "10.Scrolling to the bottom of the screen "
+  "test_id": "141263",
+  "test_name": "Client->Client Summary->To Verify if the user can add new entries in training data."
 },{
-  "test_id": "932",
-  "test_name": "11.Dynamic dropdown selection "
+  "test_id": "141265",
+  "test_name": "Client->Client Summary->Training->To verify that the list of training is sorted in ascending and descending order when the user clicks on the sorting arrow."
 },{
-  "test_id": "933",
-  "test_name": "12.Clicking Square checkbox "
+  "test_id": "141275",
+  "test_name": "Client-Client Summary-> Training->To verify that navigated to Create New Training screen, when user click \"+Create\" button."
 },{
-  "test_id": "934",
-  "test_name": "13.Uploading File from windows"
+  "test_id": "141287",
+  "test_name": "Client->Client Summary->Training->To verify that when the user clicks the Save button on the Client Record-Training Data screen, the data should be saved, and they should be navigated to the training main screen."
 },{
-  "test_id": "935",
-  "test_name": "14.Entering Address"
+  "test_id": "141289",
+  "test_name": "Client->Client Summary->Training->To verify that the user can view previously entered training data and add new entries on the Client Record-Training Data screen."
+},{
+  "test_id": "141322",
+  "test_name": "Client->Client Summary->Document->To verify that the user is able to enter the tag in the search field."
+},{
+  "test_id": "141324",
+  "test_name": "Client->Client Summary->Document->To verify that the user is able to click the Upload button and navigate to the upload screen."
+},{
+  "test_id": "141332",
+  "test_name": "Client->Client Summary->Document->To verify that the user is able to click the \"delete\" button after selecting a document."
+},{
+  "test_id": "141335",
+  "test_name": "Client->Create New Client->Client information->Toaster message \"Client Added Successfully.\" displayed, when user create a new client record. "
+},{
+  "test_id": "141337",
+  "test_name": "Client-Client Summary->Document->To verify that the user is able to search for a document in the list of documents."
+},{
+  "test_id": "141340",
+  "test_name": "Client->Client Summary->Document->To verify that each document should have at least one tag in the Upload document pop-up."
+},{
+  "test_id": "141370",
+  "test_name": "Client-Client Summary->Instruction->To verify that the user can upload instructions by clicking the upload button."
+},{
+  "test_id": "141380",
+  "test_name": "Client->Client Summary->Instruction->To verify that if there is no data in the instruction section, the error message \"No record found\" is displayed."
+},{
+  "test_id": "141406",
+  "test_name": "Client-Client Summary-Activity log->To verify if the correct action of the user mentioned in the FRD (Record updated, Case manager assigned, Status changed, Referral created, comments added, documents uploaded) is displayed in the Activity log."
+},{
+  "test_id": "141433",
+  "test_name": "Client->Client Summary->Training->To verify that if there is no data in the Training section, the error message \"No Record Found\" along with an exclamation mark is displayed."
+},{
+  "test_id": "141547",
+  "test_name": "Client-> Client summary -> Activity log->To verify that the user should be able to click the Filter icon under the Activity log tab."
+},{
+  "test_id": "144229",
+  "test_name": "Client->View and edit->To verify that the existing summary page displays a detailed view of all the tabs in the Summary Page."
 }]

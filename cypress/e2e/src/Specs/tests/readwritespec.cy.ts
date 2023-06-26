@@ -15,11 +15,9 @@ describe("My first Test Suite ",{testIsolation:false} ,() => {
  
   
 beforeEach('Generating faker data everytime ',()=>{
-
-
     // 1.getting faker data generated dynamically using faker,json
-    cy.log("Executing Before each 1. Generating faker data json dynamically " )
-    let dataObj = generateEmployees(10);
+   cy.log("Executing Before each 1. Generating faker data json dynamically " )
+   let dataObj = generateEmployees(10);
    cy.writeFile("./cypress/fixtures/fakerdata.json",JSON.stringify(dataObj, null, '\t'));
    if(index==0){
      //2. Fetching tfs  ids and name from respective tfs plan and suite  dynamically and storing into json

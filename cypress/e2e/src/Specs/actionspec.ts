@@ -5,8 +5,7 @@
 import { get } from "cypress/types/lodash";
 import { Selector } from "../page-objects/Selectors";
 import { highlight } from 'cypress-highlight'
-const { ClientSecretCredential} = require("@azure/identity");
-const { SecretClient } = require("@azure/keyvault-secrets");
+
 //enum to array of Selectors  conversion
 let userdata : any ;
  const getselector=function(objname):string {
@@ -37,6 +36,9 @@ export class action {
       cy.clearAllCookies()
       cy.clearAllSessionStorage()
       cy.visit(data)
+      // cy.task('get_secret').then((element:string) => {
+      //   cy.log("Secret value is : "+element)
+      // })
       cy.LoginAzure()
       cy.screenshot(keyword)
       this.set_variable(description,"PASSED")
@@ -84,14 +86,14 @@ export class action {
    // let regex = new  RegEx('bc*d')
     if(regex.includes("contains")){
     cy.log("Inside contains"+description+"\n"+objname)
-    cy.contains(getselector(objname)).click();
+    cy.contains(getselector(objname)).click({force:true});
     highlight(getselector(objname))
     cy.screenshot(objname)
     runmode="PASSED"
     return runmode
     }else{
     cy.log("Inside get"+description+"\n"+objname)
-    cy.get(getselector(objname)).click()
+    cy.get(getselector(objname)).click({force:true})
     highlight(getselector(objname))
     cy.screenshot(objname)
     this.set_variable(description,"PASSED")
@@ -150,7 +152,7 @@ date=(description,objname,data,keyword,runmode)=>{
   var regex : string = objname
   if(regex.includes("date")){
     cy.log("Inside date check "+ description+"\n"+objname+ "\n"+data+"\n"+keyword) 
-    cy.get(getselector(objname)).click();
+    cy.get(getselector(objname)).click({force:true});
     cy.fixture('fakerdata').then((json) => {
       //getting random data from json from 9
       let n1 : number = Math.floor(Math.random() * 10) 
@@ -243,22 +245,5 @@ cy.log("Setting variable is : "+desc)
 cy.task('setUserData', desc) 
 }
 
-async secret_get()  {
-  cy.log('inside secret_get')
-  const tenantId=getselector('tenant_id'),clientId=getselector('client_id'),clientSecret=getselector('client_secret')
-const firstCredential = new ClientSecretCredential( tenantId, clientId, clientSecret);
-const keyVaultName = getselector('keyvault_name');
-cy.log(keyVaultName)
-try {
-  if (!keyVaultName) throw new Error("KEY_VAULT_NAME is empty");
-  const url = "https://" + keyVaultName + ".vault.azure.net";
-const client = new SecretClient(url, firstCredential);
-  const secret = await client.getSecret(getselector('key'));
-   cy.log(secret.name);
-   cy.log(secret.value)
-} catch (error) {
-  console.log("Azure Active Directory service response with error", error.errorResponse);
-}
 
-}
 }

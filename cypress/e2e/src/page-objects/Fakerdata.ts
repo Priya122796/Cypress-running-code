@@ -5,6 +5,7 @@ const generateData = () => {
   return {
     id: faker.random.numeric(),
     first_name: faker.name.firstName(),
+    first_name_next:faker.name.firstName(),
     last_name: faker.name.lastName(),
     client_name:faker.name.fullName(),
     email: faker.internet.email(),
