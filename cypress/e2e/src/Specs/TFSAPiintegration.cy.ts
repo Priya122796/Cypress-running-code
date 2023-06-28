@@ -371,54 +371,42 @@ const createBug=(description,filename)=>{
 }
   
 
-const create_attachment=(description,filename)=>{
-  cy.log("Creating attachment with filename  "+filename)
- const file1='/cypress/fixtures/Sampleimage.png'
- cy.log("Location of the file :"+file1)
- cy.readFile(file1, 'binary').then((fileContent) => {
-  //const fileContent = fs.readFileSync('/cypress/fixtures/Sampleimage.png')
- // filename='Failed screenshot14.Entering Address - Fieldname - address.png'
-  //cy.fixture('Sampleimage.png').then( image => {
-  // cy.fixture('Sampleimage.png','binary').then( image => {
-  //   const blob = new Blob([image], { type: 'image/png' });
-    const blob = Cypress.Blob.binaryStringToBlob(fileContent, 'image/png');
-    const formData = new FormData();
-  //  cy.log(blob.toString())
-    formData.append('', blob, fileContent  );
-  cy.request({
-    method:'POST',
-    url:'https://paradigmoutcomes.visualstudio.com/Network%20and%20Operations//_apis/wit/attachments?fileName=imageAsFileAttachment.png&api-version=6.0',
-   //encoding: 'binary',
+const create_attachment = (filename, bugid) => {
+  filename = filename + '.png'
+  cy.log(filename + ":Creating attachment with filename")
+  cy.task('get_file', filename).then((attachmenturl: string) => {
+    cy.log("The attachment url is : " + attachmenturl)
+    var a1 = attachmenturl
+    let data = [
+      {
+        "op": "add",
+        "path": "/fields/System.History",
+        "value": "Screenshot attached " + filename
+      },
+      {
+        "op": "add",
+        "path": "/relations/-",
+        "value": {
+          "rel": "AttachedFile",
+          "url": a1,
+          "attributes": {
+            "comment": " Screenshot attached " + filename
+          }
+        }
+      }
+    ];
+    cy.request({
+      method: 'PATCH',
+      url: 'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/wit/workitems/' + bugid + '?api-version=7.0',
+      //encoding: 'binary',
       headers: {
         authorization: getselector(auth),
-        'Content-Type':'application/octet-stream'
+        'Content-Type': 'application/json-patch+json'
       },
-     body:fileContent,
+      body: data
+    }).then(response => {
+      cy.log("The bug id  is : " + response.body.id)
+      //cy.log(response.body)
+    })
   })
-}).then(response => {
-    cy.log("The Attachment url is  : "+response.body.url)
-    //cy.log(response.body)
-  })
- 
 }
-// const fs = require('fs');
-
-// // Read the binary file and get its content as a Buffer
-// const filePath = '/path/to/binary/file.bin';
-// const fileContent = fs.readFileSync(filePath);
-
-// // Create the attachment
-// cy.request({
-//   method: 'POST',
-//   url: 'https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Storage/storageAccounts/{storageAccountName}/fileServices/{fileServiceName}/shares/{shareName}/directories/{directoryPath}/files/{fileName}?api-version=2021-02-01',
-//   headers: {
-//     'Authorization': 'Bearer yourAccessToken',
-//     'Content-Type': 'application/octet-stream'
-//   },
-//   body: fileContent
-// })
-// .then((response) => {
-//   // Handle the response
-//   // For example, check the status code
-//   expect(response.status).to.eq(201);
-// });

@@ -70,6 +70,7 @@ it('Read from excel, Starting execution on Testcases',  {
 //REading json and defining the calling methods 
     cy.fixture('testData').then((json) => {
     for(let j in json){
+      //testcases
       status="FAILED"
       cy.log(json[j].keyword+json[j].runmode)
      description = json[j].description;
@@ -81,6 +82,7 @@ it('Read from excel, Starting execution on Testcases',  {
     var obj_array=ob1.split(",")
    let runmode =json[j].runmode; 
     if(runmode== "yes"){
+      //steps
       for (let index = 0; index < key_array.length; index++) {  
         keyword=key_array[index]
         ob1=obj_array[index]

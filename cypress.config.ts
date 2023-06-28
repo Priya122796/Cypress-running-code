@@ -5,6 +5,47 @@ const path = require('path')
 const { defineConfig } = require("cypress");
 const { ClientSecretCredential} = require("@azure/identity");
 const { SecretClient } = require("@azure/keyvault-secrets");
+const axios = require('axios');
+const fs = require('fs');
+function readFileContents(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, null, (error, data) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(data);
+      }
+    });
+
+  });
+
+}
+const axiospng = async (imgloc) => {
+  var main_loc = './cypress/screenshots/' + imgloc
+  console.log(main_loc)
+  let file = await readFileContents(main_loc)
+
+  let config = {
+
+    method: 'post',
+    url: 'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro//_apis/wit/attachments?fileName=imageAsFileAttachment.png&api-version=6.0',
+    headers: {
+
+      'Content-Type': 'application/octet-stream',
+      'Authorization': 'Basic OmV0anM0Y2k3Ymh2aXBiZDVqYXJ1MmJiZGliajZndWpzeWFnYzdqYzJtcmZwb2hkb2twdWE='
+    },
+    data: file
+  };
+
+  var result = await axios.request(config).then((response) => {
+    return response.data.url
+  })
+
+  console.log("config", config)
+  console.log("Restu = ", result)
+  return result
+};
+
 
 const getmethod_secret = async() => {
   //const tenantId=process.env.TENANT_ID, clientId=process.env.CLIENT_ID,clientSecret=process.env.CLIENT_SECRET
@@ -107,6 +148,9 @@ module.exports = defineConfig({
         get_secret:()=>{
          console.log("Get_secret task")
           return  getmethod_secret()
+      },
+      get_file: (imgloc: string) => {
+        return axiospng(imgloc)
       }
       });
       allureWriter(on, config);

@@ -47,7 +47,7 @@ export class action {
   }
   assert =(description,data,objname,runmode)=>{
     // cy.log(Object.values(objname))
-    description=description+"   Fieldname - "+objname+" "
+    description=description+" Fieldname - "+ objname
     cy.log("****************assert method : "+description,data,objname)
     runmode="FAILED"
     this.set_variable(description,"FAILED")
@@ -57,12 +57,12 @@ export class action {
       cy.url({timeout:5000}).should('eq',data)
       this.set_variable(description,"PASSED")
       runmode="PASSED"
-      cy.screenshot(regex)
+     // cy.screenshot(regex)
     }else if(regex.includes('contains')) {
       cy.log("Inside contains assert "+description+"\n expected data is :"+data)
       cy.contains(getselector(regex)).should('contain.text',data);
       highlight(getselector(objname))
-      cy.screenshot(regex)
+     // cy.screenshot(regex)
       runmode="PASSED"
       this.set_variable(description,"PASSED")
     }
@@ -70,7 +70,7 @@ export class action {
       cy.log("Inside get assert "+description+"\n expected data is :"+data)
       cy.get(getselector(regex)).should('contain.text',data);
       highlight(getselector(objname))
-      cy.screenshot(regex)
+     // cy.screenshot(regex)
       runmode="PASSED"
       this.set_variable(description,"PASSED")
     }
@@ -80,7 +80,7 @@ export class action {
 //click action with get and contains
   click=(description,objname,runmode)=>{
    // cy.log(Object.values(objname))
-   description=description+"   Fieldname - "+objname+" "
+   description=description+" Fieldname - "+ objname
    this.set_variable(description,"FAILED")
     var regex : string = objname
    // let regex = new  RegEx('bc*d')
@@ -88,14 +88,14 @@ export class action {
     cy.log("Inside contains"+description+"\n"+objname)
     cy.contains(getselector(objname)).click({force:true});
     highlight(getselector(objname))
-    cy.screenshot(objname)
+   // cy.screenshot(objname)
     runmode="PASSED"
     return runmode
     }else{
     cy.log("Inside get"+description+"\n"+objname)
     cy.get(getselector(objname)).click({force:true})
     highlight(getselector(objname))
-    cy.screenshot(objname)
+   // cy.screenshot(objname)
     this.set_variable(description,"PASSED")
     runmode="PASSED"
     return runmode
@@ -103,23 +103,17 @@ export class action {
 }
 //type method 
 type=(description,objname,data,runmode)=>{
-  description=description+"   Fieldname - "+objname+" "
+  description=description+" Fieldname - "+ objname
   this.set_variable(description,"FAILED")
     if(data.includes( "faker")){
-
-      // if(objname.includes("last"))
-      // cy.task('setUserData', description)
       //handling error and complete run without failing the execution 
-    //   Cypress.on('fail', (error, runnable) => {
-    //    // this.failed_cases(description)
-    //      if (!error.message.includes(' but never found it')) {
-    //  // cy.task('setValue', { key: 'description', value: description })
-    //     cy.log(error.message)
-    //    // Cypress.env('description', description)
-    //    return false
+      Cypress.on('fail', (error, runnable) => {
+         if (!error.message.includes(' but never found it')) {
+        cy.log(error.message)
+       return false
         
-    //   }
-    //   })
+      }
+      })
       cy.log("Inside get"+description+"\n"+objname) 
       //reading data from fixture .json file 
       cy.fixture('fakerdata').then((json) => {
@@ -136,7 +130,7 @@ type=(description,objname,data,runmode)=>{
         }
         highlight(getselector(objname))
          
-      cy.screenshot(objname)
+     // cy.screenshot(objname)
       })
       this.set_variable(description,"PASSED")
       runmode="PASSED"
@@ -147,7 +141,7 @@ type=(description,objname,data,runmode)=>{
 }
 // date button check method
 date=(description,objname,data,keyword,runmode)=>{
-  description=description+"   Fieldname - "+objname+" "
+  description=description+" Fieldname - "+ objname
   this.set_variable(description,"FAILED")
   var regex : string = objname
   if(regex.includes("date")){
@@ -164,7 +158,7 @@ date=(description,objname,data,keyword,runmode)=>{
     cy.get(getselector(objname)).type(v2)
     highlight(getselector(objname))
     })
-    cy.screenshot(objname)
+   // cy.screenshot(objname)
     this.set_variable(description,"PASSED")
     runmode="PASSED"
     return runmode
@@ -172,14 +166,14 @@ date=(description,objname,data,keyword,runmode)=>{
 }
 //uploading file from cypress-file-upload external package 
 uploadfile=(description,objname,data,keyword,runmode)=>{
-  description=description+"   Fieldname - "+objname+" "
+  description=description+" Fieldname - "+ objname
   this.set_variable(description,"FAILED") 
   var regex : string = objname
   if(regex.includes("upload")){
     cy.log("Inside uploadfile check "+ description+"\n"+objname+ "\n"+data+"\n"+keyword) 
     cy.get(getselector(objname)).attachFile(data)
     highlight(getselector(objname))
-    cy.screenshot(objname)
+   // cy.screenshot(objname)
     runmode="PASSED"
     this.set_variable(description,"PASSED")
     return runmode
@@ -187,7 +181,7 @@ uploadfile=(description,objname,data,keyword,runmode)=>{
 }
 //selecting dynamic dropdown by type,search,select
 dropdown=(description,objname,data,keyword,runmode)=>{
-  description=description+"   Fieldname - "+objname+" "
+  description=description+" Fieldname - "+ objname
   this.set_variable(description,"FAILED")
   var arr:[]=data.split(',')
   var regex : string = objname
@@ -198,11 +192,11 @@ dropdown=(description,objname,data,keyword,runmode)=>{
       //handling dynamic dropdown [without select tag]with tab key 
        cy.get(getselector(objname)).type(element+'{downArrow}{enter}')
        highlight(getselector(objname))
-    cy.screenshot(objname)
+   // cy.screenshot(objname)
     });
     //removing added last dropdown selection  without select tag
   //  cy.get(getselector(keyword)).should('be.visible').click({force:true});
-    cy.screenshot(objname)
+   // cy.screenshot(objname)
 
     this.set_variable(description,"PASSED")
     runmode="PASSED"
@@ -211,7 +205,7 @@ dropdown=(description,objname,data,keyword,runmode)=>{
     cy.log("Inside select dropdown check "+ description+"\n"+objname);
     cy.get(getselector(objname)).type(data+'{enter}')
     highlight(getselector(objname))
-    cy.screenshot(description+"   "+objname)
+   // cy.screenshot(objname)
  
     this.set_variable(description,"PASSED")
     runmode="PASSED"
@@ -220,7 +214,7 @@ dropdown=(description,objname,data,keyword,runmode)=>{
     cy.log("Inside select dropdown check "+ description+"\n"+objname);
     cy.get(getselector(objname)).type(data+'{downArrow}{enter}'+'{enter}')
     highlight(getselector(objname))
-    cy.screenshot(description+"   "+objname)
+   // cy.screenshot(objname)
     this.set_variable(description,"PASSED")
     return runmode
   }
@@ -228,12 +222,12 @@ dropdown=(description,objname,data,keyword,runmode)=>{
 
 //Scroll to the last element
 scroll=(description,objname,runmode)=>{
-  description=description+"   Fieldname - "+objname+" "
+  description=description+" Fieldname - "+ objname
   this.set_variable(description,"FAILED")
   var regex : string = objname
   cy.log("Inside contains"+description+"\n"+objname)
   cy.contains(getselector(objname)).scrollIntoView()
-  cy.screenshot(objname)
+ // cy.screenshot(objname)
   this.set_variable(description,"PASSED")
   runmode="PASSED"
   return runmode
