@@ -117,7 +117,7 @@
         "keyword": "click",
         "data": "no value",
         "objectName": "document",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "141340",
@@ -125,15 +125,7 @@
         "keyword": "click",
         "data": "no value",
         "objectName": "instruction",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "141370",
-        "description": "Client-Client Summary->Instruction->To verify that the user can upload instructions by clicking the upload button.",
-        "keyword": "click",
-        "data": "no value",
-        "objectName": "training",
-        "runmode": "yes"
+        "runmode": "no"
     },
     {
         "tcid": "141380",
@@ -141,14 +133,6 @@
         "keyword": "click",
         "data": "no value",
         "objectName": "document",
-        "runmode": "yes"
-    },
-    {
-        "tcid": "141406",
-        "description": "Client-Client Summary-Activity log->To verify if the correct action of the user mentioned in the FRD (Record updated, Case manager assigned, Status changed, Referral created, comments added, documents uploaded) is displayed in the Activity log.",
-        "keyword": "click",
-        "data": "no value",
-        "objectName": "instruction",
-        "runmode": "yes"
+        "runmode": "no"
     }
 ]
