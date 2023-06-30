@@ -5,6 +5,7 @@ import * as fs from 'fs';
 //import { getPointIDfromAzure } from "../page-objects/Automation";
 
 
+
 //const fileContent = fs.readFileSync(file1);
 let planID : any, suitID : any, testcasecount : any
 let index=0;

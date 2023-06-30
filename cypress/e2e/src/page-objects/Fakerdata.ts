@@ -1,6 +1,6 @@
 import {faker} from '@faker-js/faker';
 
-
+//generating data migrate
 const generateData = () => {
   return {
     id: faker.random.numeric(),

@@ -54,55 +54,52 @@ describe('Redirected to naveen automation labss', () => {
     })
     cy.log('after secret call ')
 
-    cy.log("testing the file attachment upload")
-    cy.task('get_file', "Failed screenshot Login-To Verify that Successfully landed user role-based landing page, when user Clicking on the Adva pro Login button Fieldname - url.png").then((element: string) => {
-      cy.log(element)
-    })
+    
 
 
-    var filename = "Failed screenshot Login-To Verify that Successfully landed user role-based landing page, when user Clicking on the Adva pro Login button Fieldname - url.png" 
-    cy.log(filename + ":Creating attachment with filename")
-    cy.task('get_file', filename).then((attachmenturl: String) => {
-      cy.log("The attachment url is : " + attachmenturl)
-      var a1 = attachmenturl
-      let data = JSON.parse(JSON.stringify([
-        {
-          "op": "add",
-          "path": "/fields/System.History",
-          "value": "Screenshot attached "
-        },
-        {
-          "op": "add",
-          "path": "/relations/-",
-          "value": {
-            "rel": "AttachedFile",
-            "url": a1,
-            "attributes": {
-              "comment": " Screenshot attached "
-            }
-          }
-        }
-      ]));
-      cy.request({
-        method: 'PATCH',
-        url: 'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/wit/workitems/1863?api-version=7.0',
-        //encoding: 'binary',
-        headers: {
-          authorization: 'Basic OmV0anM0Y2k3Ymh2aXBiZDVqYXJ1MmJiZGliajZndWpzeWFnYzdqYzJtcmZwb2hkb2twdWE=',
-          'Content-Type': 'application/json-patch+json'
-        },
-        body: data
-      }).then(response => {
-        cy.log("The bug is   : " + response.body.id)
-        //cy.log(response.body)
-      })
-    })
+    // var filename = "Failed screenshot Login-To Verify that Successfully landed user role-based landing page, when user Clicking on the Adva pro Login button Fieldname - url.png" 
+    // cy.log(filename + ":Creating attachment with filename")
+    // cy.task('get_file', filename).then((attachmenturl: String) => {
+    //   cy.log("The attachment url is : " + attachmenturl)
+    //   var a1 = attachmenturl
+    //   let data = JSON.parse(JSON.stringify([
+    //     {
+    //       "op": "add",
+    //       "path": "/fields/System.History",
+    //       "value": "Screenshot attached "
+    //     },
+    //     {
+    //       "op": "add",
+    //       "path": "/relations/-",
+    //       "value": {
+    //         "rel": "AttachedFile",
+    //         "url": a1,
+    //         "attributes": {
+    //           "comment": " Screenshot attached "
+    //         }
+    //       }
+    //     }
+    //   ]));
+    //   cy.request({
+    //     method: 'PATCH',
+    //     url: 'https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/wit/workitems/1863?api-version=7.0',
+    //     //encoding: 'binary',
+    //     headers: {
+    //       authorization: 'Basic OmV0anM0Y2k3Ymh2aXBiZDVqYXJ1MmJiZGliajZndWpzeWFnYzdqYzJtcmZwb2hkb2twdWE=',
+    //       'Content-Type': 'application/json-patch+json'
+    //     },
+    //     body: data
+    //   }).then(response => {
+    //     cy.log("The bug is   : " + response.body.id)
+    //     //cy.log(response.body)
+    //   })
+    // })
 
 
-    // }
-    // createbug().then((resp=>{
-    //   cy.log(resp+"The bug id is ")
-    // }))
+    // // }
+    // // createbug().then((resp=>{
+    // //   cy.log(resp+"The bug id is ")
+    // // }))
   });
 
   //  https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/wit/workitems/$Bug?api-version=7.0

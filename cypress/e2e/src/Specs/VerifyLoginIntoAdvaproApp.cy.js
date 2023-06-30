@@ -31,6 +31,7 @@ const getselector=function(objname) {
          cy.LoginAzure(); 
        cy.get(getselector('client_menu')).first().should('be.visible').click({timeout:8000})
        cy.screenshot("Client Menu",{timeout:4000})
+      cy.get(getselector('client_contains')).click();
        var element= 'liyan'
        cy.get("#searchBox").type(element+'{downarrow}{enter}',{force:true})
        cy.screenshot('search done ')

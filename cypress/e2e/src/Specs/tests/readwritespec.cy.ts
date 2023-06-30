@@ -1,7 +1,7 @@
 
 import {action} from  '../actionspec';
 import { generateEmployees } from "../../page-objects/Fakerdata";
-import {get_testplan_details,UpdateStatusintoTFS} from "../TFSAPiintegration.cy";
+import {get_testplan_details,UpdateStatusintoTFS} from "../AzureDevOpsintegration.cy";
 /// <reference types="cypress" />
 
 
