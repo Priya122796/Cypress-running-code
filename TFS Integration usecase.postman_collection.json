@@ -1,0 +1,706 @@
+{
+	"info": {
+		"_postman_id": "74a37a0f-55bc-4637-93af-6de63c2de12a",
+		"name": "TFS Integration usecase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13302496"
+	},
+	"item": [
+		{
+			"name": "Get Testplan",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/872?api-version=5.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"test",
+						"plans",
+						"872"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "5.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Test Suite",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/872/suites?api-version=5.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"test",
+						"plans",
+						"872",
+						"suites"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "5.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get testcasesListfrom Suite id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/872/suites/921/testcases?api-version=5.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"test",
+						"plans",
+						"872",
+						"suites",
+						"921",
+						"testcases"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "5.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get TestCaseid",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/872/suites/921/testcases?api-version=5.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"test",
+						"plans",
+						"872",
+						"suites",
+						"921",
+						"testcases"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "5.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Testpoint id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/plans/872/suites/921/points?testcaseId=926&api-version=5.1",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"test",
+						"plans",
+						"872",
+						"suites",
+						"921",
+						"points"
+					],
+					"query": [
+						{
+							"key": "testcaseId",
+							"value": "926"
+						},
+						{
+							"key": "api-version",
+							"value": "5.1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Run",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"TestruncreatedFrompostman3\",\r\n  \"plan\": {\r\n    \"id\": \"872\"\r\n  },\r\n  \"pointIds\": [\r\n    77\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/runs?api-version=7.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"test",
+						"runs"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "7.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GettestResultID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/Runs/1755/results?api-version=7.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"test",
+						"Runs",
+						"1755",
+						"results"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "7.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateStatus",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"id\": 100000,\r\n    \"outcome\":\"PASSED\",\r\n    \"state\": \"Completed\",\r\n    \"comment\": \"Execution FAILED\",\r\n     \"associatedBugs\": [\r\n      {\r\n        \"id\": \"973\"\r\n      }\r\n    ]\r\n  }\r\n  ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/test/Runs/1755/results?api-version=7.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"test",
+						"Runs",
+						"1755",
+						"results"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "7.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create bug",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json-patch+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    [\r\n        {\r\n            \"op\": \"add\",\r\n            \"path\": \"/fields/System.Title\",\r\n            \"from\": null,\r\n            \"value\": \"Test of REST functionality\"\r\n        },\r\n        {\r\n            \"op\": \"add\",\r\n            \"path\": \"/fields/System.State\",\r\n            \"from\": null,\r\n            \"value\": \"New\"\r\n        },\r\n        {\r\n            \"op\": \"add\",\r\n            \"path\": \"/fields/Microsoft.VSTS.Scheduling.Effort\",\r\n            \"from\": null,\r\n            \"value\": \"1\"\r\n\r\n        },{\r\n            \"op\": \"add\",\r\n            \"path\": \"/fields/Microsoft.VSTS.Scheduling.BugOwner\",\r\n            \"from\": null,\r\n            \"value\": \"Nifaanya Priya\"\r\n\r\n        },{\r\n            \"op\": \"add\",\r\n            \"path\": \"/fields/Microsoft.VSTS.Scheduling.DevOwner\",\r\n            \"from\": null,\r\n            \"value\": \"Nifaanya Priya\"\r\n\r\n        }\r\n        \r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/wit/workitems/$Bug?api-version=7.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"wit",
+						"workitems",
+						"$Bug"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "7.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update bug with attachment",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json-patch+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  \r\n  {\r\n    \"op\": \"add\",\r\n    \"path\": \"/fields/System.History\",\r\n    \"value\": \"Adding the necessary spec\"\r\n  },\r\n  {\r\n    \"op\": \"add\",\r\n    \"path\": \"/relations/-\",\r\n    \"value\": {\r\n      \"rel\": \"AttachedFile\",\r\n      \"url\": \"https://augusta-coderepo.com/Client_Project_2023/ec0dd260-1e40-4e0c-bfa7-5acece3ceaf5/_apis/wit/attachments/ee15ba0e-1bcd-4f44-bb9c-9c49fd1b9267?fileName=imageAsFileAttachment.png\",\r\n      \"attributes\": {\r\n        \"comment\": \"Spec for the work\"\r\n      }\r\n    }\r\n  }\r\n]\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro/_apis/wit/workitems/1856?api-version=7.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"_apis",
+						"wit",
+						"workitems",
+						"1856"
+					],
+					"query": [
+						{
+							"key": "api-version",
+							"value": "7.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create attachment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "pat",
+						"value": "5tq4ific34yooh7otvqqhea3tfzui4gs7pymxvvlmzwavc34h3aq",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Cookie",
+						"value": "__RequestVerificationToken=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __RequestVerificationToken24c840cd7-d18b-49cb-b0f5-bb1b332cd979=1E29sw_8-yFM08BENakMZFxceshRApEQpfqtOS-nHNKA9vfO7Xdhel1Mq8UhWxBFalaOQHflhamztiC2J7zsngHvGXs1; __TimetrackerVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyU-bFF2Ondog6hSZQOMCf7nxTeV-N_Sf-y8C5GP1RhFLGXHGtqY-XwUTge6Adi5rF5VD5D25rqfltRvGyZS9BGNf6vv641UGVKr83wH9-2EzcFBBzAse5IkYR2yAlom2EQ; RequestVerificationToken=CfDJ8GGGFwTGUVhPkD9NLbTDQyVjZn2z19AGAreabOvoV8AUMfYAFcuoYA9poL4ZUgQ55VbwY69DAeuwijHVTtqihygdgVgvzKdbxb40mqKltN19IWvzX6QCkQDyGCU44h1N5-GZaNbbaSKiXZ3eIabQA2dYhgj1PxyOudg1BDJ6IpNk8g7Js5Aig69oV6FfDUh5rA",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;api-version=6.1-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-Tfs-Session",
+						"value": "e1de61a3-7d7f-4eec-8615-b182bee06fd3",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/octet-stream",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "file",
+					"file": {
+						"src": "we0x6NvsW/Actual_Stg.png"
+					}
+				},
+				"url": {
+					"raw": "https://augusta-coderepo.com/Client_Project_2023/Paradigm_Adva_Pro//_apis/wit/attachments?fileName=imageAsFileAttachment.png&api-version=6.0",
+					"protocol": "https",
+					"host": [
+						"augusta-coderepo",
+						"com"
+					],
+					"path": [
+						"Client_Project_2023",
+						"Paradigm_Adva_Pro",
+						"",
+						"_apis",
+						"wit",
+						"attachments"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "imageAsFileAttachment.png"
+						},
+						{
+							"key": "api-version",
+							"value": "6.0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "etjs4ci7bhvipbd5jaru2bbdibj6gujsyagc7jc2mrfpohdokpua",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
