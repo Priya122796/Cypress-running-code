@@ -1,0 +1,1464 @@
+{
+	"info": {
+		"_postman_id": "24ad1cec-e167-4c33-ab64-56062c68821e",
+		"name": "NewmanRequirementsWebserviceTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13302496"
+	},
+	"item": [
+		{
+			"name": "Log in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 for /public/users/login\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('verify content type is Json body for [login]', function () {",
+							"    pm.response.to.have.header('Content-Type', 'application/json');",
+							"});",
+							"",
+							"pm.test('verify access token is not null or undefined in response [login]', function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.access_token).not.eql([",
+							"        null,",
+							"        undefined",
+							"    ]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set('access_token', jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let authClient = pm.variables.get('swiss_oauth_client') + ':' + pm.variables.get('swiss_oauth_secret');\r",
+							"let buff = new Buffer(authClient);\r",
+							"let authToken = buff.toString('base64');\r",
+							"pm.environment.set('basic_Auth',authToken)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic {{basic_Auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{swiss_user_name}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{swiss_user_password}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/auth/realms/xsb.swiss.io/protocol/openid-connect/token/",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"xsb.swiss.io",
+						"protocol",
+						"openid-connect",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit requirement Extraction uri -MIL-DTL-32075",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 202', function () {",
+							"    pm.response.to.have.status(202);",
+							"})",
+							"",
+							"let jsonData = pm.response.json();",
+							"console.log(JSON.stringify(jsonData));",
+							"",
+							"pm.test('Response properties are set.', function () {",
+							"    pm.expect(jsonData.id).to.be.greaterThan(0);",
+							"    pm.expect(jsonData.jobType).to.eql('SPEC_REQUIREMENT_UPDATE');",
+							"    pm.expect(jsonData.status).to.eql('READY');",
+							"})",
+							"",
+							"pm.test('One document is pending', function () {",
+							"    let pending = jsonData.pendingDocuments;",
+							"    pm.expect(pending.length).to.eql(1);",
+							"    pm.expect(pending[0]).to.eql('http://swiss.xsb.com/document/MIL-DTL-32075');",
+							"})",
+							"",
+							"pm.environment.set(\"task_id\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\"http://swiss.xsb.com/document/MIL-DTL-32075\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents?updateAll=false",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents"
+					],
+					"query": [
+						{
+							"key": "updateAll",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get task status for MIL-DTL-32075",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Retry for up to 5 minutes task should take 2 - 5 minutes\r",
+							"let maxRetries = 10;\r",
+							"let sleepTime = 30000;\r",
+							"\r",
+							"if (!pm.environment.get(\"tries\")) {\r",
+							"    pm.environment.set(\"tries\", 1);\r",
+							"}\r",
+							"\r",
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"let jsonData =  pm.response.json();\r",
+							"\r",
+							"if ((jsonData.status !== 'COMPLETED') && (pm.environment.get('tries') < maxRetries)) {\r",
+							"    let tries = parseInt(pm.environment.get('tries'), 10);\r",
+							"    pm.environment.set('tries', tries + 1);\r",
+							"    setTimeout(function() {}, sleepTime);\r",
+							"    postman.setNextRequest(request.name);\r",
+							"} else {\r",
+							"    pm.environment.unset(\"tries\");\r",
+							"\r",
+							"    pm.test('Response Status is 200', function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    })\r",
+							"\r",
+							"   \r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents/{{task_id}}",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents",
+						"{{task_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get requirements for MIL-DTL-32075",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test('Requirements exist', function () {\r",
+							"    let requirements = jsonData.requirements;\r",
+							"    pm.expect(requirements.length).to.be.greaterThan(0);\r",
+							"})\r",
+							"pm.test('Text requirements extracted and asserting unique and common data between first two values', function() {\r",
+							"    pm.expect(jsonData.requirements).to.not.be.empty;\r",
+							"    pm.expect(jsonData.requirements[0].subjectText).to.eql('Class 13 Label');\r",
+							"    pm.expect(jsonData.requirements[0].attributeText).to.eql('Body of instructions');\r",
+							"    pm.expect(jsonData.requirements[0].text).to.eql(jsonData.requirements[1].text);\r",
+							"    pm.expect(jsonData.requirements[0].requirementSourceData.documentUri).to.eql(jsonData.requirements[1].requirementSourceData.documentUri)\r",
+							"     pm.expect(jsonData.requirements[0].requirementSourceData.locationLabel).to.eql(jsonData.requirements[1].requirementSourceData.locationLabel) \r",
+							"    pm.expect(jsonData.requirements[0].uri).to.eql('http://swiss.xsb.com/requirements/MIL-DTL-32075/Id_id3.3.2.13_0');\r",
+							"    pm.expect(jsonData.requirements[1].uri).to.eql('http://swiss.xsb.com/requirements/MIL-DTL-32075/Id_id3.3.2.13_2');\r",
+							"    pm.expect(jsonData.requirements[0].valueText).to.eql('Minimum 8 point');         \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{swiss_host}}/swiss/specification/requirements/http%3A%2F%2Fswiss.xsb.com%2Fdocument%2FMIL-DTL-32075",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"specification",
+						"requirements",
+						"http%3A%2F%2Fswiss.xsb.com%2Fdocument%2FMIL-DTL-32075"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log-in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 for /public/users/login\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('verify content type is Json body for [login]', function () {",
+							"    pm.response.to.have.header('Content-Type', 'application/json');",
+							"});",
+							"",
+							"pm.test('verify access token is not null or undefined in response [login]', function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.access_token).not.eql([",
+							"        null,",
+							"        undefined",
+							"    ]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set('access_token', jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let authClient = pm.variables.get('swiss_oauth_client') + ':' + pm.variables.get('swiss_oauth_secret');\r",
+							"let buff = new Buffer(authClient);\r",
+							"let authToken = buff.toString('base64');\r",
+							"pm.environment.set('basic_Auth',authToken)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic {{basic_Auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{swiss_user_name}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{swiss_user_password}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/auth/realms/xsb.swiss.io/protocol/openid-connect/token/",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"xsb.swiss.io",
+						"protocol",
+						"openid-connect",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit requirement Extraction no uri",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 400', function () {",
+							"    pm.response.to.have.status(400);",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents?updateAll=false",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents"
+					],
+					"query": [
+						{
+							"key": "updateAll",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit requirement Extraction uri - MIL-DTL-9395K",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 202', function () {",
+							"    pm.response.to.have.status(202);",
+							"})",
+							"",
+							"let jsonData = pm.response.json();",
+							"console.log(JSON.stringify(jsonData));",
+							"",
+							"pm.test('Response properties are set.', function () {",
+							"    pm.expect(jsonData.id).to.be.greaterThan(0);",
+							"    pm.expect(jsonData.jobType).to.eql('SPEC_REQUIREMENT_UPDATE');",
+							"    pm.expect(jsonData.status).to.eql('READY');",
+							"})",
+							"",
+							"pm.test('One document is pending', function () {",
+							"    let pending = jsonData.pendingDocuments;",
+							"    pm.expect(pending.length).to.eql(1);",
+							"    pm.expect(pending[0]).to.eql('http://swiss.xsb.com/document/MIL-DTL-9395;REVISION=K');",
+							"})",
+							"",
+							"pm.environment.set(\"task_id\", jsonData.id);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\"http://swiss.xsb.com/document/MIL-DTL-9395;REVISION=K\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents?updateAll=false",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents"
+					],
+					"query": [
+						{
+							"key": "updateAll",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get task status for MIL-DTL-9395K",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Retry for up to 5 minutes task should take 2 - 5 minutes\r",
+							"let maxRetries = 10;\r",
+							"let sleepTime = 30000;\r",
+							"\r",
+							"if (!pm.environment.get(\"tries\")) {\r",
+							"    pm.environment.set(\"tries\", 1);\r",
+							"}\r",
+							"\r",
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"let jsonData =  pm.response.json();\r",
+							"\r",
+							"if ((jsonData.status !== 'COMPLETED') && (pm.environment.get('tries') < maxRetries)) {\r",
+							"    let tries = parseInt(pm.environment.get('tries'), 10);\r",
+							"    pm.environment.set('tries', tries + 1);\r",
+							"    setTimeout(function() {}, sleepTime);\r",
+							"    postman.setNextRequest(request.name);\r",
+							"} else {\r",
+							"    pm.environment.unset(\"tries\");\r",
+							"\r",
+							"    pm.test('Response Status is 200', function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    })\r",
+							"\r",
+							"   \r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents/{{task_id}}",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents",
+						"{{task_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get requirements for MIL-DTL-9395K",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test('Requirements exist', function () {\r",
+							"    let requirements = jsonData.requirements;\r",
+							"    let requirementsSourceData = jsonData.requirements[0].requirementsSourceData;\r",
+							"    pm.expect(requirements.length).to.be.greaterThan(0);\r",
+							"})\r",
+							"\r",
+							"pm.test('Requirements extracts attributeText', function () {\r",
+							"    pm.expect(pm.response.text()).to.include('attributeText');\r",
+							"})\r",
+							"\r",
+							"pm.test('Reuirements extracts valueText', function () {\r",
+							"    pm.expect(pm.response.text()).to.include('valueText');\r",
+							"})\r",
+							"\r",
+							"pm.test('Text requirements extracted', function() {\r",
+							"    pm.expect(jsonData.requirements).to.not.be.empty;\r",
+							"    pm.expect(jsonData.requirements[0].subjectText).to.eql('Case');\r",
+							"    pm.expect(jsonData.requirements[0].attributeText).to.eql('Watertight');\r",
+							"    pm.expect(jsonData.requirements[0].text).to.eql('The case shall be unsealed, watertight, or hermetically sealed as specified (see 3.1).');\r",
+							"    pm.expect(jsonData.requirements[0].uri).to.eql('http://swiss.xsb.com/requirements/MIL-DTL-9395;REVISION=K/Id_id3.4.2_1');\r",
+							"    pm.expect(jsonData.requirements[0].valueText).to.eql('Yes');         \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{swiss_host}}/swiss/specification/requirements/http%3A%2F%2Fswiss.xsb.com%2Fdocument%2FMIL-DTL-9395%3BREVISION%3DK",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"specification",
+						"requirements",
+						"http%3A%2F%2Fswiss.xsb.com%2Fdocument%2FMIL-DTL-9395%3BREVISION%3DK"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Relogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 for /public/users/login\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('verify content type is Json body for [login]', function () {",
+							"    pm.response.to.have.header('Content-Type', 'application/json');",
+							"});",
+							"",
+							"pm.test('verify access token is not null or undefined in response [login]', function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.access_token).not.eql([",
+							"        null,",
+							"        undefined",
+							"    ]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set('access_token', jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let authClient = pm.variables.get('swiss_oauth_client') + ':' + pm.variables.get('swiss_oauth_secret');\r",
+							"let buff = new Buffer(authClient);\r",
+							"let authToken = buff.toString('base64');\r",
+							"pm.environment.set('basic_Auth',authToken)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic {{basic_Auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{swiss_user_name}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{swiss_user_password}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/auth/realms/xsb.swiss.io/protocol/openid-connect/token/",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"xsb.swiss.io",
+						"protocol",
+						"openid-connect",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit requirement Extraction uri - doc with no sections",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 202', function () {",
+							"    pm.response.to.have.status(202);",
+							"})",
+							"",
+							"let jsonData = pm.response.json();",
+							"console.log(JSON.stringify(jsonData));",
+							"",
+							"pm.test('Response properties are set.', function () {",
+							"    pm.expect(jsonData.id).to.be.greaterThan(0);",
+							"    pm.expect(jsonData.jobType).to.eql('SPEC_REQUIREMENT_UPDATE');",
+							"    pm.expect(jsonData.status).to.eql('READY');",
+							"})",
+							"",
+							"pm.test('One document is pending', function () {",
+							"    let pending = jsonData.pendingDocuments;",
+							"    pm.expect(pending.length).to.eql(1);",
+							"    pm.expect(pending[0]).to.eql('http://swiss.xsb.com/document/A-A-55111;REVISION=A');",
+							"})",
+							"",
+							"pm.environment.set(\"task2_id\", jsonData.id);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\"http://swiss.xsb.com/document/A-A-55111;REVISION=A\" \n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents?updateAll=false",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents"
+					],
+					"query": [
+						{
+							"key": "updateAll",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get task status for doc with no section",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Retry for up to 5 minutes task should take 2 - 5 minutes\r",
+							"let maxRetries = 10;\r",
+							"let sleepTime = 30000;\r",
+							"\r",
+							"if (!pm.environment.get(\"tries\")) {\r",
+							"    pm.environment.set(\"tries\", 1);\r",
+							"}\r",
+							"\r",
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"let jsonData =  pm.response.json();\r",
+							"\r",
+							"if ((jsonData.status !== 'COMPLETED') && (pm.environment.get('tries') < maxRetries)) {\r",
+							"    let tries = parseInt(pm.environment.get('tries'), 10);\r",
+							"    pm.environment.set('tries', tries + 1);\r",
+							"    setTimeout(function() {}, sleepTime);\r",
+							"    postman.setNextRequest(request.name);\r",
+							"} else {\r",
+							"    pm.environment.unset(\"tries\");\r",
+							"\r",
+							"    pm.test('Response Status is 200', function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    })\r",
+							"\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents/{{task2_id}}",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents",
+						"{{task2_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get requirements for doc with no section",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test('Requirements exist', function () {\r",
+							"    let requirements = jsonData.requirements;\r",
+							"    pm.expect(requirements.length).to.be.greaterThan(0);\r",
+							"})\r",
+							"pm.test('No sections requirements extracted', function() {\r",
+							"    pm.expect(jsonData.requirements).to.not.be.empty;\r",
+							"    pm.expect(jsonData.requirements[0].subjectText).to.eql('Button');\r",
+							"    pm.expect(jsonData.requirements[0].attributeText).to.eql('Material');\r",
+							"    pm.expect(jsonData.requirements[0].text).to.eql('The buttons shall conform to Type II, Style 20/21, Class K, 18, 30 and 40 line of V-B-871 or equal.');\r",
+							"    pm.expect(jsonData.requirements[0].uri).to.eql('http://swiss.xsb.com/requirements/A-A-55111;REVISION=A/Node000231_161');\r",
+							"    pm.expect(jsonData.requirements[0].valueText).to.eql('V-B-871 or equal');\r",
+							"   pm.expect(jsonData.requirements[0].requirementSourceData.locationLabel).to.eql('Section');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{swiss_host}}/swiss/specification/requirements/http%3A%2F%2Fswiss.xsb.com%2Fdocument%2FA-A-55111%3BREVISION%3DA",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"specification",
+						"requirements",
+						"http%3A%2F%2Fswiss.xsb.com%2Fdocument%2FA-A-55111%3BREVISION%3DA"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Re-login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 for /public/users/login\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('verify content type is Json body for [login]', function () {",
+							"    pm.response.to.have.header('Content-Type', 'application/json');",
+							"});",
+							"",
+							"pm.test('verify access token is not null or undefined in response [login]', function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.access_token).not.eql([",
+							"        null,",
+							"        undefined",
+							"    ]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set('access_token', jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let authClient = pm.variables.get('swiss_oauth_client') + ':' + pm.variables.get('swiss_oauth_secret');\r",
+							"let buff = new Buffer(authClient);\r",
+							"let authToken = buff.toString('base64');\r",
+							"pm.environment.set('basic_Auth',authToken)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic {{basic_Auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{swiss_user_name}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{swiss_user_password}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/auth/realms/xsb.swiss.io/protocol/openid-connect/token/",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"xsb.swiss.io",
+						"protocol",
+						"openid-connect",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extraction text requirements",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData =  pm.response.json();\r",
+							"pm.test('Text requirements extracted from pdf', function() {\r",
+							"    pm.expect(jsonData.requirements).to.not.be.empty;\r",
+							"        pm.expect(jsonData.requirements[0].subjectText).to.eql('Cloth');\r",
+							"    pm.expect(jsonData.requirements[0].attributeText).to.eql('Availability');\r",
+							"     pm.expect(jsonData.requirements[0].text).to.eql('This cloth shall be available in the following classes, as specified:.');\r",
+							"         pm.expect(jsonData.requirements[0].uri).to.eql('http://swiss.xsb.com/requirements/A-A-50185;REVISION=A_sec_1_0');\r",
+							"          pm.expect(jsonData.requirements[0].valueText).to.eql('As specified');\r",
+							"   pm.expect(jsonData.requirements[0].requirementSourceData.locationLabel).to.eql('2');\r",
+							"});\r",
+							" \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "designator",
+							"value": "A-A-50185A",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "A-A-50185A.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/specification/text-requirement-extraction",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"specification",
+						"text-requirement-extraction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extraction text requirements - no doc provided",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 400', function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "designator",
+							"value": "A-A-50185A",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/specification/text-requirement-extraction",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"specification",
+						"text-requirement-extraction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 for /public/users/login\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('verify content type is Json body for [login]', function () {",
+							"    pm.response.to.have.header('Content-Type', 'application/json');",
+							"});",
+							"",
+							"pm.test('verify access token is not null or undefined in response [login]', function () {",
+							"    var responseData = pm.response.json();",
+							"    pm.expect(responseData.access_token).not.eql([",
+							"        null,",
+							"        undefined",
+							"    ]);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"pm.environment.set('access_token', jsonData.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let authClient = pm.variables.get('swiss_oauth_client') + ':' + pm.variables.get('swiss_oauth_secret');\r",
+							"let buff = new Buffer(authClient);\r",
+							"let authToken = buff.toString('base64');\r",
+							"pm.environment.set('basic_Auth',authToken)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic {{basic_Auth}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{swiss_user_name}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{swiss_user_password}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/auth/realms/xsb.swiss.io/protocol/openid-connect/token/",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"auth",
+						"realms",
+						"xsb.swiss.io",
+						"protocol",
+						"openid-connect",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extraction table requirements",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"let jsonData =  pm.response.json();\r",
+							"pm.test('Table 1 requirements extracted', function() {\r",
+							"    pm.expect(jsonData.requirements).to.not.be.empty;\r",
+							"    pm.expect(jsonData.requirements[0].requirementSourceData.locationLabel).to.eql('TABLE I (page 8)');\r",
+							"    pm.expect(jsonData.requirements[0].subjectText).to.eql('Style A - Solid Shades All colors');\r",
+							"    pm.expect(jsonData.requirements[0].attributeText).to.eql('colorfastness to laundering color change & staining 3 cycles');\r",
+							"         pm.expect(jsonData.requirements[0].uri).to.eql('http://swiss.xsb.com/document/MIL-DTL-32439;REVISION=B_pdftbl_1_1');\r",
+							"        pm.expect(jsonData.requirements[0].requirementSourceData.locationUri).to.eql('http://swiss.xsb.com/document/MIL-DTL-32439;REVISION=B_pdftbl_1');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "designator",
+							"value": "MIL-DTL-32439B",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "MIL-DTL-32439B.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/specification/table-requirement-extraction",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"specification",
+						"table-requirement-extraction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "extraction table requirements - no doc provided Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 400', function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "designator",
+							"value": "MIL-DTL-32439B",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/specification/table-requirement-extraction",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"specification",
+						"table-requirement-extraction"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

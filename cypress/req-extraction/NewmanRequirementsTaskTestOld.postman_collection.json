@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "88cafe4d-bb2b-41e2-b9cc-b422af33dd02",
+		"name": "NewmanRequirementsTaskTest Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23136362"
+	},
+	"item": [
+		{
+			"name": "Submit requirement generation",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 202', function () {",
+							"    pm.response.to.have.status(202);",
+							"})",
+							"",
+							"let jsonData = pm.response.json();",
+							"console.log(JSON.stringify(jsonData));",
+							"",
+							"pm.test('Response properties are set.', function () {",
+							"    pm.expect(jsonData.id).to.be.greaterThan(0);",
+							"    pm.expect(jsonData.jobType).to.eql('SPEC_REQUIREMENT_UPDATE');",
+							"    pm.expect(jsonData.status).to.eql('READY');",
+							"})",
+							"",
+							"pm.test('One document is pending', function () {",
+							"    let pending = jsonData.pendingDocuments;",
+							"    pm.expect(pending.length).to.eql(1);",
+							"    pm.expect(pending[0]).to.eql('http://swiss.xsb.com/document/MIL-DTL-32075');",
+							"})",
+							"",
+							"pm.environment.set(\"task_id\", jsonData.id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{swiss-auth-test-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n\"http://swiss.xsb.com/document/MIL-DTL-32075\"\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents?updateAll=false",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents"
+					],
+					"query": [
+						{
+							"key": "updateAll",
+							"value": "false"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get task status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Retry for up to 5 minutes task should take 2 - 5 minutes\r",
+							"let maxRetries = 10;\r",
+							"let sleepTime = 30000;\r",
+							"\r",
+							"if (!pm.environment.get(\"tries\")) {\r",
+							"    pm.environment.set(\"tries\", 1);\r",
+							"}\r",
+							"\r",
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"let jsonData =  pm.response.json();\r",
+							"\r",
+							"if ((jsonData.status !== 'COMPLETED') && (pm.environment.get('tries') < maxRetries)) {\r",
+							"    let tries = parseInt(pm.environment.get('tries'), 10);\r",
+							"    pm.environment.set('tries', tries + 1);\r",
+							"    setTimeout(function() {}, sleepTime);\r",
+							"    postman.setNextRequest(request.name);\r",
+							"} else {\r",
+							"    pm.environment.unset(\"tries\");\r",
+							"\r",
+							"    pm.test('Response Status is 200', function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    })\r",
+							"\r",
+							"    pm.test('No document Errors', function () {\r",
+							"        console.log(JSON.stringify(jsonData));\r",
+							"        let errors = jsonData.documentErrors;\r",
+							"        pm.expect(errors.length).to.eql(0);\r",
+							"    })\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{swiss-auth-test-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{swiss_host}}/swiss/task/requirement/update-documents/{{task_id}}",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"task",
+						"requirement",
+						"update-documents",
+						"{{task_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get requirements for MIL-DTL-32075",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Response Status is 200', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test('Requirements exist', function () {\r",
+							"    let requirements = jsonData.requirements;\r",
+							"    pm.expect(requirements.length).to.be.greaterThan(0);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{swiss-auth-test-token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{swiss_host}}/swiss/specification/requirements/http%3A%2F%2Fswiss.xsb.com%2Fdocument%2FMIL-DTL-32075",
+					"host": [
+						"{{swiss_host}}"
+					],
+					"path": [
+						"swiss",
+						"specification",
+						"requirements",
+						"http%3A%2F%2Fswiss.xsb.com%2Fdocument%2FMIL-DTL-32075"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"let auth_host = pm.variables.get('swiss_host');",
+					"if(pm.variables.get('swiss_auth_host')){",
+					"    auth_host = pm.variables.get('swiss_auth_host')",
+					"}",
+					"",
+					"let oauth_client = 'oauthclient';",
+					"if (pm.variables.get('swiss_oauth_client')) {",
+					"  oauth_client = pm.variables.get('swiss_oauth_client');",
+					"}",
+					"let authClient = oauth_client + ':' + pm.variables.get('swiss_oauth_secret');",
+					"let buff = new Buffer(authClient);",
+					"let authToken = buff.toString('base64');",
+					"",
+					"pm.sendRequest({",
+					"    url: auth_host + '/auth/realms/xsb.swiss.io/protocol/openid-connect/token',",
+					"    method: 'POST',",
+					"    header: {",
+					"        'content-type': 'application/x-www-form-urlencoded',",
+					"        'authorization': 'Basic ' + authToken,",
+					"        'grant_type': 'password'",
+					"    },",
+					"    body: {",
+					"        mode: 'raw',",
+					"        raw:'username='+encodeURIComponent(pm.variables.get('swiss_user_name'))+'&password='+encodeURIComponent(pm.variables.get('swiss_user_password'))+'&grant_type=password'",
+					"    }",
+					"}, function (err, res) {",
+					"    postman.setGlobalVariable(\"swiss-auth-test-token\", res.json().access_token);",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": "empty"
+		}
+	]
+}
